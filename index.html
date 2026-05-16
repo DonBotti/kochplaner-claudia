@@ -625,9 +625,11 @@
                 <div id="shoppingListContent"></div>
                 
                 <div class="share-section">
-                    <h3>📤 Als PDF speichern</h3>
-                    <p>Wähle aus, was in die PDF aufgenommen werden soll:</p>
-                    <div style="text-align: left; margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
+                    <h3>📤 Plan speichern</h3>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📄 PDF erstellen</h4>
+                        <p style="margin-bottom: 10px; font-size: 0.9em;">Wähle aus, was in die PDF aufgenommen werden soll:</p>
                         <label style="display: block; margin: 8px 0; cursor: pointer;">
                             <input type="checkbox" id="pdfWeekPlan" checked> 📅 Wochenplan
                         </label>
@@ -637,10 +639,26 @@
                         <label style="display: block; margin: 8px 0; cursor: pointer;">
                             <input type="checkbox" id="pdfShopping" checked> 🛒 Einkaufsliste
                         </label>
+                        <button class="btn" onclick="generatePDF()" style="margin: 15px auto; width: 100%;">
+                            📄 PDF erstellen
+                        </button>
                     </div>
-                    <button class="btn" onclick="generatePDF()" style="margin: 10px auto;">
-                        📄 PDF erstellen
-                    </button>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">💾 Lokal speichern</h4>
+                        <p style="margin-bottom: 10px; font-size: 0.9em;">Speichere diesen Plan mit allen Details auf deinem Gerät:</p>
+                        <button class="btn" onclick="savePlanToFile()" style="margin: 10px auto; width: 100%; background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);">
+                            💾 Plan speichern (JSON)
+                        </button>
+                        <p style="font-size: 0.8em; color: #666; margin-top: 8px;">Enthält: Wochenplan, Rezepte, Einkaufsliste, Auswahl</p>
+                    </div>
+                    
+                    <div id="savedPlansList" style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📂 Gespeicherte Pläne</h4>
+                        <div id="plansListContent">
+                            <p style="font-size: 0.9em; color: #666;">Noch keine Pläne gespeichert.</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="info-box" style="margin-top: 20px; text-align: center;">
@@ -652,6 +670,15 @@
                 <button class="btn" onclick="location.reload()">
                     🔄 Neuen Plan erstellen
                 </button>
+                
+                <script>
+                    // Gespeicherte Pläne anzeigen, wenn Seite geladen wird
+                    document.addEventListener('DOMContentLoaded', function() {
+                        if (document.getElementById('plansListContent')) {
+                            updateSavedPlansList();
+                        }
+                    });
+                </script>
             </div>
         </div>
     </div>
@@ -1087,12 +1114,48 @@
             document.getElementById('cookingListContent').innerHTML = html;
         }
         
-        // Globale Variable für PDF-Inhalt
+        // Globale Variable für PDF-Inhalt und lokale Speicherung
         let pdfContent = {
             weekPlan: '',
             recipes: '',
             shopping: ''
         };
+        
+        // Funktion zum Speichern des Plans lokal
+        function savePlanLocally() {
+            const selectedData = selectedRecipes.map(id => ({id, ...recipes[id]}));
+            const planData = {
+                date: new Date().toISOString(),
+                selectedRecipes: selectedData,
+                weekPlan: pdfContent.weekPlan,
+                recipes: pdfContent.recipes,
+                shopping: pdfContent.shopping
+            };
+            
+            // Speichere in localStorage
+            const savedPlans = JSON.parse(localStorage.getItem('kochplaner_plans') || '[]');
+            savedPlans.push(planData);
+            localStorage.setItem('kochplaner_plans', JSON.stringify(savedPlans));
+            
+            // Erstelle auch eine JSON-Datei zum Download
+            const dataStr = JSON.stringify(planData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `kochplan_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            return savedPlans.length;
+        }
+        
+        // Funktion zum Laden gespeicherter Pläne
+        function loadSavedPlans() {
+            return JSON.parse(localStorage.getItem('kochplaner_plans') || '[]');
+        }
         
         function generatePDF() {
             const includeWeekPlan = document.getElementById('pdfWeekPlan').checked;
@@ -1139,6 +1202,34 @@
             printWindow.document.write(printContent);
             printWindow.document.close();
             printWindow.print();
+        }
+        
+        function savePlanToFile() {
+            const planNumber = savePlanLocally();
+            updateSavedPlansList();
+            alert('Plan #' + planNumber + ' wurde gespeichert!\n\nDie Datei wurde als JSON heruntergeladen und kann jederzeit wieder geladen werden.');
+        }
+        
+        function updateSavedPlansList() {
+            const plans = loadSavedPlans();
+            const listContainer = document.getElementById('plansListContent');
+            
+            if (plans.length === 0) {
+                listContainer.innerHTML = '<p style="font-size: 0.9em; color: #666;">Noch keine Pläne gespeichert.</p>';
+                return;
+            }
+            
+            let html = '<ul style="list-style: none; padding: 0;">';
+            plans.forEach((plan, index) => {
+                const date = new Date(plan.date).toLocaleDateString('de-CH');
+                const recipeNames = plan.selectedRecipes.map(r => r.name).join(', ');
+                html += `<li style="padding: 10px; border-bottom: 1px solid #eee;">`;
+                html += `<strong>Plan #${index + 1}</strong> — ${date}<br>`;
+                html += `<span style="font-size: 0.85em; color: #666;">${recipeNames}</span>`;
+                html += `</li>`;
+            });
+            html += '</ul>';
+            listContainer.innerHTML = html;
         }
         
         function goToPhase4() {
