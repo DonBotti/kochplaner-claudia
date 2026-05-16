@@ -1336,7 +1336,7 @@
                 12: { 'Gemüse und Früchte': ['Randen 300g', 'Zwiebeln 2 Stk'], 'Milchprodukte': ['Ziegenkäse 150g', 'Crème fraîche 200ml'], 'Brot/Backwaren': ['Flammkuchenteig 1 Stk'] },
                 13: { 'Gemüse und Früchte': ['Paprika 4 Stk'], 'Hülsenfrüchte/Getreide': ['Reis 200g'], 'Milchprodukte': ['Käse 200g'] },
                 14: { 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Hülsenfrüchte/Getreide': ['Pasta 400g'], 'Kräuter': ['Bärlauch 1 Bund'], 'Nüsse/Samen': ['Pinienkerne 50g'], 'Milchprodukte': ['Parmesan 50g'] },
-                15: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Spinat 200g'], 'Konserven': ['Kichererbsen (Dose) 1x'], 'Hülsenfrüchte/Getreide': ['Basmatireis 200g'], 'Konserven': ['Kokosmilch 1 Dose'] },
+                15: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Spinat 200g'], 'Konserven': ['Kichererbsen (Dose) 1x', 'Kokosmilch 1 Dose'], 'Hülsenfrücke/Getreide': ['Basmatireis 200g'] },
                 16: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Fisch': ['Lachsfilet 300g (2 Stk)'], 'Milchprodukte': ['Butter 50g'], 'Gewürze/Vorrat': ['Knoblauch 1 Zehe', 'Öl'] },
                 17: { 'Hülsenfrüchte/Getreide': ['Pasta 300g'], 'Konserven': ['Thunfisch (Dose) 1x'], 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Gewürze/Vorrat': ['Kapern 2 EL', 'Knoblauch 1 Zehe', 'Olivenöl', 'Zitrone 1 Stk'], 'Kräuter': ['Petersilie'] },
                 18: { 'Gemüse und Früchte': ['Kartoffeln 400g', 'Gurke 1 Stk', 'Zwiebel 1 Stk'], 'Fisch': ['Seelachsfilet 300g (2 Stk)'], 'Gewürze/Vorrat': ['Öl 3 EL', 'Essig 2 EL', 'Senf 1 TL', 'Dill', 'Salz', 'Pfeffer'] }
@@ -1362,28 +1362,49 @@
                 };
             }
             
-            // Zutaten zusammenfassen (z.B. 3x "Kichererbsen (Dose)" → "Kichererbsen (Dose) 3x")
+            // Zutaten zusammenfassen und Mengen addieren
             const consolidatedIngredients = {};
+            
             for (const [category, items] of Object.entries(ingredients)) {
-                const itemCounts = {};
+                const itemMap = {};
+                
                 items.forEach(item => {
-                    // Extrahiere Menge und Einheit
-                    const match = item.match(/^(.+?)\s+(\d+\s*(?:g|kg|ml|l|Stk|Bund|EL|TL|Dose|x))?$/i);
-                    const baseName = match ? match[1].trim() : item;
-                    const unit = match ? match[2] : '';
+                    // Normalisiere den Eintrag
+                    let normalized = item.trim();
                     
-                    if (!itemCounts[baseName]) {
-                        itemCounts[baseName] = { count: 0, unit: unit };
+                    // Extrahiere Menge und Einheit
+                    // Formate: "Kichererbsen (Dose) 1x", "Pasta 500g", "Eier 6 Stk"
+                    const match = normalized.match(/^(.+?)\s+(\d+(?:\.\d+)?)\s*(g|kg|ml|l|Stk|Bund|EL|TL|Dose|x|Stück|Portionen)?$/i);
+                    
+                    if (match) {
+                        const baseName = match[1].trim();
+                        const amount = parseFloat(match[2]);
+                        const unit = match[3] || 'x';
+                        
+                        const key = `${baseName}___${unit}`;
+                        
+                        if (!itemMap[key]) {
+                            itemMap[key] = { name: baseName, amount: 0, unit: unit };
+                        }
+                        itemMap[key].amount += amount;
+                    } else {
+                        // Falls kein Muster passt, einfach zählen
+                        if (!itemMap[normalized]) {
+                            itemMap[normalized] = { name: normalized, amount: 0, unit: 'x' };
+                        }
+                        itemMap[normalized].amount += 1;
                     }
-                    itemCounts[baseName].count++;
                 });
                 
-                consolidatedIngredients[category] = Object.entries(itemCounts).map(([name, data]) => {
-                    if (data.count > 1) {
-                        return `${name} ${data.count}x`;
+                consolidatedIngredients[category] = Object.values(itemMap).map(data => {
+                    // Ganze Zahlen ohne Komma, Dezimalzahlen mit Komma
+                    const amountStr = Number.isInteger(data.amount) ? data.amount.toString() : data.amount.toFixed(1).replace('.', ',');
+                    
+                    if (data.unit === 'x' && data.amount === 1) {
+                        return data.name;
                     }
-                    return data.unit ? `${name} ${data.unit}` : name;
-                });
+                    return `${data.name} ${amountStr} ${data.unit}`;
+                }).sort();
             }
             
             let html = '<div class="shopping-list">';
