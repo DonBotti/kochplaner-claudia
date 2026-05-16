@@ -680,12 +680,16 @@
                     </div>
                     
                     <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
-                        <h4 style="color: #667eea; margin-bottom: 10px;">💾 Lokal speichern</h4>
-                        <p style="margin-bottom: 10px; font-size: 0.9em;">Speichere diesen Plan mit allen Details auf deinem Gerät:</p>
+                        <h4 style="color: #667eea; margin-bottom: 10px;">💾 Automatische Sicherung</h4>
+                        <p style="margin-bottom: 10px; font-size: 0.9em;">Jeder Plan wird automatisch mit Datum und Nummer gespeichert:</p>
+                        <p style="font-size: 0.85em; color: #555; background: #f5f5f5; padding: 8px; border-radius: 4px; margin-bottom: 10px;">
+                            📁 <code>Kochplan_1_2026-05-16.json</code><br>
+                            📁 <code>Kochplan_2_2026-05-23.json</code>
+                        </p>
                         <button class="btn" onclick="savePlanToFile()" style="margin: 10px auto; width: 100%; background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);">
-                            💾 Plan speichern (JSON)
+                            💾 Plan jetzt sichern
                         </button>
-                        <p style="font-size: 0.8em; color: #666; margin-top: 8px;">Enthält: Wochenplan, Rezepte, Einkaufsliste, Auswahl</p>
+                        <p style="font-size: 0.8em; color: #666; margin-top: 8px;">✅ Enthält: Wochenplan, Rezepte, Einkaufsliste, Auswahl</p>
                     </div>
                     
                     <div id="savedPlansList" style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
@@ -1014,49 +1018,65 @@
             const dinnerOptions = selectedData.filter(r => r.dinner || !r.lunch);
             const mealPrepOptions = selectedData.filter(r => r.mealprep);
             
-            // Wochenplan-Logik
+            // NEUE Wochenplan-Logik
+            // Prinzip: Meal-Prep wird am Vorabend gekocht, am nächsten Tag als Lunch gegessen
             let plan = [];
-            let usedForLunch = new Set();
             let usedForDinner = new Set();
+            let previousDinner = null; // Speichert das gestrige Abendessen für Reste
+            
+            // Sonntag: Meal-Prep Vorbereitung
+            const sundayPrep = mealPrepOptions.slice(0, 2); // Max 2 Prep-Gerichte am Sonntag
             
             days.forEach((day, index) => {
                 let lunch = '';
                 let dinner = '';
                 let prep = '';
                 
-                if (index < 5) { // Mo-Fr: Lunch zum Mitnehmen
-                    // Bevorzuge Meal-Prep-Gerichte für Lunch
-                    const availableLunch = lunchOptions.filter(r => !usedForLunch.has(r.id));
-                    if (availableLunch.length > 0) {
-                        // Wenn am Vortag ein Meal-Prep-Gericht zum Abendessen war, nimm Reste
-                        if (index > 0 && plan[index-1].dinner.mealprep && !usedForLunch.has(plan[index-1].dinner.id)) {
-                            lunch = {...plan[index-1].dinner, isLeftover: true};
-                            usedForLunch.add(plan[index-1].dinner.id);
-                        } else {
-                            lunch = availableLunch[0];
-                            usedForLunch.add(lunch.id);
+                // === LUNCH (Mo-Fr) ===
+                if (index < 5) { // Nur unter der Woche Lunch
+                    if (index === 0) { // Montag: Sonntags-Reste
+                        if (sundayPrep.length > 0) {
+                            lunch = {...sundayPrep[0], isLeftover: true, prepDay: 'Sonntag'};
                         }
+                    } else if (previousDinner && previousDinner.mealprep) {
+                        // Dienstag-Freitag: Reste vom gestrigen Abendessen
+                        lunch = {...previousDinner, isLeftover: true, prepDay: 'gestern Abend'};
                     } else if (lunchOptions.length > 0) {
-                        lunch = lunchOptions[index % lunchOptions.length];
+                        // Fallback: Frisches Lunch-Gericht
+                        const availableLunch = lunchOptions.filter(r => !usedForDinner.has(r.id));
+                        lunch = availableLunch.length > 0 ? availableLunch[0] : lunchOptions[index % lunchOptions.length];
                     }
                 }
                 
-                // Abendessen
+                // === DINNER ===
                 const availableDinner = dinnerOptions.filter(r => !usedForDinner.has(r.id));
-                if (availableDinner.length > 0) {
-                    dinner = availableDinner[0];
-                    usedForDinner.add(dinner.id);
-                } else if (dinnerOptions.length > 0) {
-                    dinner = dinnerOptions[index % dinnerOptions.length];
+                
+                if (index === 6) { // Sonntag: Meal-Prep für die Woche
+                    if (sundayPrep.length > 0) {
+                        dinner = sundayPrep[0];
+                        prep = `Meal-Prep: ${sundayPrep.map(r => r.name).join(', ')} vorbereiten`;
+                    } else if (availableDinner.length > 0) {
+                        dinner = availableDinner[0];
+                    }
+                } else if (index === 5 || index === 6) { // Samstag/Sonntag: Aufwändigere Gerichte
+                    const weekendOptions = availableDinner.filter(r => r.time > 30);
+                    dinner = weekendOptions.length > 0 ? weekendOptions[0] : (availableDinner[0] || dinnerOptions[0]);
+                    if (dinner.time > 40) {
+                        prep = 'Zeit für aufwändiges Kochen am Wochenende';
+                    }
+                } else { // Mo-Fr: Schnelle Gerichte
+                    const quickOptions = availableDinner.filter(r => r.time <= 30);
+                    dinner = quickOptions.length > 0 ? quickOptions[0] : (availableDinner[0] || dinnerOptions[0]);
+                    
+                    // Hinweis wenn Meal-Prep
+                    if (dinner.mealprep) {
+                        prep = `Mehr kochen → Reste für morgigen Lunch`;
+                    }
                 }
                 
-                // Vorbereitungs-Hinweise
-                if (dinner.mealprep && index < 5) {
-                    prep = `Mehr kochen → Lunch für ${days[index+1] || 'morgen'}`;
-                }
-                if (dinner.time > 40) {
-                    prep = prep ? prep + ', ' : '';
-                    prep += 'Aufwändig - am Wochenende kochen';
+                if (dinner) {
+                    usedForDinner.add(dinner.id);
+                    previousDinner = dinner; // Speichere für morgigen Lunch
                 }
                 
                 plan.push({day, lunch, dinner, prep});
@@ -1203,8 +1223,14 @@
         // Funktion zum Speichern des Plans lokal
         function savePlanLocally() {
             const selectedData = selectedRecipes.map(id => ({id, ...recipes[id]}));
+            const savedPlans = JSON.parse(localStorage.getItem('kochplaner_plans') || '[]');
+            const planNumber = savedPlans.length + 1;
+            const dateStr = new Date().toISOString().split('T')[0];
+            
             const planData = {
+                planNumber: planNumber,
                 date: new Date().toISOString(),
+                dateFormatted: dateStr,
                 selectedRecipes: selectedData,
                 weekPlan: pdfContent.weekPlan,
                 recipes: pdfContent.recipes,
@@ -1212,7 +1238,6 @@
             };
             
             // Speichere in localStorage
-            const savedPlans = JSON.parse(localStorage.getItem('kochplaner_plans') || '[]');
             savedPlans.push(planData);
             localStorage.setItem('kochplaner_plans', JSON.stringify(savedPlans));
             
@@ -1222,13 +1247,13 @@
             const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `kochplan_${new Date().toISOString().split('T')[0]}.json`;
+            link.download = `Kochplan_${planNumber}_${dateStr}.json`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
             
-            return savedPlans.length;
+            return planNumber;
         }
         
         // Funktion zum Laden gespeicherter Pläne
