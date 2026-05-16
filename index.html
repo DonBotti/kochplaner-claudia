@@ -1322,21 +1322,24 @@
             
             // Zutaten-Mapping für jedes Rezept
             const recipeIngredients = {
-                1: { 'Gemüse und Früchte': ['Gurke 1 Stk', 'Tomaten 4 Stk', 'Rote Zwiebel 1 Stk'], 'Hülsenfrüchte/Getreide': ['Couscous 300g', 'Kichererbsen (Dose) 1x'], 'Milchprodukte': ['Feta 200g'], 'Gewürze/Vorrat': ['Zitrone 1 Stk', 'Olivenöl'] },
+                1: { 'Gemüse und Früchte': ['Gurke 1 Stk', 'Tomaten 4 Stk', 'Rote Zwiebel 1 Stk'], 'Hülsenfrüchte/Getreide': ['Couscous 300g'], 'Konserven': ['Kichererbsen (Dose) 1x'], 'Milchprodukte': ['Feta 200g'], 'Gewürze/Vorrat': ['Zitrone 1 Stk', 'Olivenöl'] },
                 2: { 'Hülsenfrüchte/Getreide': ['Rote Linsen 300g', 'Basmatireis 300g'], 'Konserven': ['Kokosmilch 1 Dose'], 'Gewürze/Vorrat': ['Kurkuma', 'Kreuzkümmel', 'Knoblauch'] },
-                3: { 'Gemüse und Früchte': ['Radieschen 1 Bund', 'Avocado 1 Stk'], 'Hülsenfrücke/Getreide': ['Quinoa 200g'], 'Milchprodukte': ['Halloumi 200g'] },
-                4: { 'Gemüse und Früchte': ['Spinat 300g'], 'Hülsenfrücke/Getreide': ['Pasta 500g'], 'Milchprodukte': ['Ricotta 250g', 'Parmesan 50g'] },
+                3: { 'Gemüse und Früchte': ['Radieschen 1 Bund', 'Avocado 1 Stk'], 'Hülsenfrüchte/Getreide': ['Quinoa 200g'], 'Milchprodukte': ['Halloumi 200g'] },
+                4: { 'Gemüse und Früchte': ['Spinat 300g'], 'Hülsenfrüchte/Getreide': ['Pasta 500g'], 'Milchprodukte': ['Ricotta 250g', 'Parmesan 50g'] },
                 5: { 'Gemüse und Früchte': ['Frühlingszwiebeln 1 Bund', 'Paprika 2 Stk'], 'Milchprodukte': ['Eier 6 Stk', 'Käse 150g'] },
-                6: { 'Gemüse und Früchte': ['Spargel 500g'], 'Hülsenfrücke/Getreide': ['Gnocchi 500g'], 'Milchprodukte': ['Rahm 200ml'] },
+                6: { 'Gemüse und Früchte': ['Spargel 500g'], 'Hülsenfrüchte/Getreide': ['Gnocchi 500g'], 'Milchprodukte': ['Rahm 200ml'] },
                 7: { 'Gemüse und Früchte': ['Paprika 2 Stk', 'Zwiebeln 2 Stk', 'Tomaten 4 Stk'], 'Milchprodukte': ['Eier 4 Stk'], 'Brot/Backwaren': ['Brot 1 Stk'] },
-                8: { 'Gemüse und Früchte': ['Kürbis 400g', 'Ingwer 1 Stk'], 'Hülsenfrücke/Getreide': ['Rote Linsen 200g'], 'Konserven': ['Kokosmilch 1 Dose'] },
-                9: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Aubergine 1 Stk'], 'Hülsenfrücke/Getreide': ['Kichererbsen (Dose) 1x'], 'Nüsse/Samen': ['Tahini 1 Glas'] },
+                8: { 'Gemüse und Früchte': ['Kürbis 400g', 'Ingwer 1 Stk'], 'Hülsenfrüchte/Getreide': ['Rote Linsen 200g'], 'Konserven': ['Kokosmilch 1 Dose'] },
+                9: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Aubergine 1 Stk'], 'Konserven': ['Kichererbsen (Dose) 1x'], 'Nüsse/Samen': ['Tahini 1 Glas'] },
                 10: { 'Gemüse und Früchte': ['Spinat 300g'], 'Milchprodukte': ['Eier 4 Stk', 'Feta 150g', 'Sahne 200ml'], 'Brot/Backwaren': ['Blätterteig 1 Rolle'] },
-                11: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Hülsenfrücke/Getreide': ['Risottoreis 250g'], 'Milchprodukte': ['Parmesan 100g'] },
+                11: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Hülsenfrüchte/Getreide': ['Risottoreis 250g'], 'Milchprodukte': ['Parmesan 100g'] },
                 12: { 'Gemüse und Früchte': ['Randen 300g', 'Zwiebeln 2 Stk'], 'Milchprodukte': ['Ziegenkäse 150g', 'Crème fraîche 200ml'], 'Brot/Backwaren': ['Flammkuchenteig 1 Stk'] },
-                13: { 'Gemüse und Früchte': ['Paprika 4 Stk'], 'Hülsenfrücke/Getreide': ['Reis 200g'], 'Milchprodukte': ['Käse 200g'] },
-                14: { 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Hülsenfrücke/Getreide': ['Pasta 400g'], 'Kräuter': ['Bärlauch 1 Bund'], 'Nüsse/Samen': ['Pinienkerne 50g'], 'Milchprodukte': ['Parmesan 50g'] },
-                15: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Spinat 200g'], 'Hülsenfrücke/Getreide': ['Kichererbsen (Dose) 1x', 'Basmatireis 200g'], 'Konserven': ['Kokosmilch 1 Dose'] }
+                13: { 'Gemüse und Früchte': ['Paprika 4 Stk'], 'Hülsenfrüchte/Getreide': ['Reis 200g'], 'Milchprodukte': ['Käse 200g'] },
+                14: { 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Hülsenfrüchte/Getreide': ['Pasta 400g'], 'Kräuter': ['Bärlauch 1 Bund'], 'Nüsse/Samen': ['Pinienkerne 50g'], 'Milchprodukte': ['Parmesan 50g'] },
+                15: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Spinat 200g'], 'Konserven': ['Kichererbsen (Dose) 1x'], 'Hülsenfrüchte/Getreide': ['Basmatireis 200g'], 'Konserven': ['Kokosmilch 1 Dose'] },
+                16: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Fisch': ['Lachsfilet 300g (2 Stk)'], 'Milchprodukte': ['Butter 50g'], 'Gewürze/Vorrat': ['Knoblauch 1 Zehe', 'Öl'] },
+                17: { 'Hülsenfrüchte/Getreide': ['Pasta 300g'], 'Konserven': ['Thunfisch (Dose) 1x'], 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Gewürze/Vorrat': ['Kapern 2 EL', 'Knoblauch 1 Zehe', 'Olivenöl', 'Zitrone 1 Stk'], 'Kräuter': ['Petersilie'] },
+                18: { 'Gemüse und Früchte': ['Kartoffeln 400g', 'Gurke 1 Stk', 'Zwiebel 1 Stk'], 'Fisch': ['Seelachsfilet 300g (2 Stk)'], 'Gewürze/Vorrat': ['Öl 3 EL', 'Essig 2 EL', 'Senf 1 TL', 'Dill', 'Salz', 'Pfeffer'] }
             };
             
             // Sammle Zutaten aus ausgewählten Rezepten
@@ -1359,10 +1362,34 @@
                 };
             }
             
+            // Zutaten zusammenfassen (z.B. 3x "Kichererbsen (Dose)" → "Kichererbsen (Dose) 3x")
+            const consolidatedIngredients = {};
+            for (const [category, items] of Object.entries(ingredients)) {
+                const itemCounts = {};
+                items.forEach(item => {
+                    // Extrahiere Menge und Einheit
+                    const match = item.match(/^(.+?)\s+(\d+\s*(?:g|kg|ml|l|Stk|Bund|EL|TL|Dose|x))?$/i);
+                    const baseName = match ? match[1].trim() : item;
+                    const unit = match ? match[2] : '';
+                    
+                    if (!itemCounts[baseName]) {
+                        itemCounts[baseName] = { count: 0, unit: unit };
+                    }
+                    itemCounts[baseName].count++;
+                });
+                
+                consolidatedIngredients[category] = Object.entries(itemCounts).map(([name, data]) => {
+                    if (data.count > 1) {
+                        return `${name} ${data.count}x`;
+                    }
+                    return data.unit ? `${name} ${data.unit}` : name;
+                });
+            }
+            
             let html = '<div class="shopping-list">';
             let shoppingForPDF = '<div class="shopping-list">';
             
-            for (const [category, items] of Object.entries(ingredients)) {
+            for (const [category, items] of Object.entries(consolidatedIngredients)) {
                 html += '<div class="shopping-category">';
                 html += `<h3>${category}</h3>`;
                 shoppingForPDF += `<div class="category">${category}</div>`;
