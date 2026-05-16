@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kochplaner - Vegetarische Wochenplanung</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .phase {
+            display: none;
+        }
+        
+        .phase.active {
+            display: block;
+        }
+        
+        .phase-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .recipe-grid {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .recipe-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .recipe-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .recipe-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .recipe-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .recipe-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .recipe-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .recipe-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .recipe-meta span {
+            background: #f5f5f5;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        
+        .recipe-meta .time {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .recipe-meta .difficulty-easy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .recipe-meta .difficulty-medium {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .recipe-meta .seasonal {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        
+        .recipe-meta .lunch {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .recipe-meta .mealprep {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .group-title {
+            font-size: 1.3em;
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            padding: 10px;
+            background: #f0f4ff;
+            border-radius: 8px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: block;
+            margin: 30px auto;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .selection-counter {
+            text-align: center;
+            font-size: 1.1em;
+            color: #667eea;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .week-plan {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .week-plan th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .week-plan td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .week-plan tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+        
+        .shopping-list {
+            columns: 2;
+            column-gap: 30px;
+        }
+        
+        .shopping-category {
+            break-inside: avoid;
+            margin-bottom: 20px;
+        }
+        
+        .shopping-category h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .shopping-item {
+            padding: 5px 0;
+            border-bottom: 1px dotted #e0e0e0;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .progress-step.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .progress-step.completed {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .share-section {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .share-link {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .recipe-meta {
+                font-size: 0.8em;
+            }
+            
+            .shopping-list {
+                columns: 1;
+            }
+            
+            .week-plan {
+                font-size: 0.9em;
+            }
+            
+            .week-plan th, .week-plan td {
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍽️ Hallo Claudia!</h1>
+            <p>Euer persönlicher vegetarischer Wochenplaner — entworfen von DonBo</p>
+        </div>
+        
+        <div class="content">
+            <!-- Phase 1: Auswahl -->
+            <div id="phase1" class="phase active">
+                <h2 class="phase-title">Willkommen bei deinem Kochplaner!</h2>
+                
+                <div class="info-box">
+                    <p><strong>Hallo Claudia,</strong></p>
+                    <p style="margin-top: 10px;">
+                        Ich bin DonBo, der digitale Assistent von Andreas. Er hat mich gebeten, 
+                        euch bei der wöchentlichen Essensplanung zu unterstützen. Ich habe diesen 
+                        Planer entworfen, damit ihr gemeinsam abwechslungsreiche, vegetarische Gerichte 
+                        findet, die perfekt in euren Alltag passen.
+                    </p>
+                    <p style="margin-top: 10px;">
+                        <strong>Meine Vorgaben für die Rezeptauswahl:</strong>
+                    </p>
+                    <ul style="margin-top: 5px; margin-left: 20px;">
+                        <li>🌱 <strong>Vegetarisch</strong> — kein Fleisch, kein Fisch</li>
+                        <li>⏱️ <strong>Schnell unter der Woche</strong> — max. 30–40 Min aktive Arbeitszeit</li>
+                        <li>🥡 <strong>Lunch-geeignet</strong> — Gerichte, die sich gut zum Mitnehmen eignen</li>
+                        <li>🇨🇭 <strong>Regional & saisonal</strong> — Fokus auf Schweizer Zutaten (Mai: Spargel, Bärlauch, Radieschen)</li>
+                        <li>🔄 <strong>Resteverwertung</strong> — Abendessen sollte oft auch als Lunch taugen</li>
+                        <li>🥗 <strong>Ausgewogen</strong> — Proteine durch Hülsenfrüchte, Eier, Käse, Quark, Tofu</li>
+                    </ul>
+                    <p style="margin-top: 10px;">
+                        <strong>Gemeinsam entscheiden:</strong> Wählt unten 5–7 Gerichte aus, die euch 
+                        zusagen. Ich erstelle dann automatisch einen Wochenplan mit passender 
+                        Einkaufsliste für den Coop.
+                    </p>
+                    <p style="margin-top: 10px; color: #667eea;">
+                        💡 <em>Tipp: Gerichte mit 🔄 Meal-Prep sind praktisch, um am Vorabend 
+                        vorzukochen und am nächsten Tag mitzunehmen.</em>
+                    </p>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-step active">1</div>
+                    <div class="progress-step">2</div>
+                    <div class="progress-step">3</div>
+                    <div class="progress-step">4</div>
+                </div>
+                
+                <div class="selection-counter">
+                    Ausgewählt: <span id="selectedCount">0</span> / 5-7 Gerichte
+                </div>
+                
+                <div class="group-title">🥗 Perfekt für deinen Lunch unter der Woche</div>
+                <div class="recipe-grid">
+                    <div class="recipe-card" data-id="1" onclick="toggleSelection(this)">
+                        <span class="recipe-number">1</span>
+                        <span class="recipe-title">Couscous-Salat mit Kichererbsen und Feta</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 20 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="lunch">🥡 Lunch-Top</span>
+                            <span class="mealprep">🔄 Meal-Prep</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="2" onclick="toggleSelection(this)">
+                        <span class="recipe-number">2</span>
+                        <span class="recipe-title">Linsen-Dal mit Reis</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 25 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="lunch">🥡 Thermobehälter</span>
+                            <span class="mealprep">🔄 Meal-Prep</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="3" onclick="toggleSelection(this)">
+                        <span class="recipe-number">3</span>
+                        <span class="recipe-title">Quinoa-Bowl mit gebratenem Halloumi und Radieschen</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 25 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="seasonal">🌸 Saison (Mai)</span>
+                            <span class="lunch">🥡 Lunch-geeignet</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group-title">⚡ Schnell zubereitet nach dem Arbeiten</div>
+                <div class="recipe-grid">
+                    <div class="recipe-card" data-id="4" onclick="toggleSelection(this)">
+                        <span class="recipe-number">4</span>
+                        <span class="recipe-title">One-Pot-Pasta mit Spinat und Ricotta</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 20 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="seasonal">🌸 Saison (Frühling)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="5" onclick="toggleSelection(this)">
+                        <span class="recipe-number">5</span>
+                        <span class="recipe-title">Gemüse-Frittata mit Frühlingszwiebeln und Käse</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 15 Min + Backen</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="lunch">🥡 Kalt als Lunch</span>
+                            <span class="mealprep">🔄 Meal-Prep</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="6" onclick="toggleSelection(this)">
+                        <span class="recipe-number">6</span>
+                        <span class="recipe-title">Gnocchi mit Spargel-Rahmsauce</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 15 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="seasonal">🌸 Spargel-Saison!</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="7" onclick="toggleSelection(this)">
+                        <span class="recipe-number">7</span>
+                        <span class="recipe-title">Shakshuka mit Brot</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 25 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group-title">🍲 Ideal zum Vorkochen am Sonntag</div>
+                <div class="recipe-grid">
+                    <div class="recipe-card" data-id="8" onclick="toggleSelection(this)">
+                        <span class="recipe-number">8</span>
+                        <span class="recipe-title">Kürbis-Linsen-Eintopf mit Ingwer</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 30 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="mealprep">🔄 Wird besser am 2. Tag</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="9" onclick="toggleSelection(this)">
+                        <span class="recipe-number">9</span>
+                        <span class="recipe-title">Ofengemüse mit Kichererbsen und Tahini-Dressing</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 15 Min + Ofen</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="mealprep">🔄 3 Tage haltbar</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="10" onclick="toggleSelection(this)">
+                        <span class="recipe-number">10</span>
+                        <span class="recipe-title">Spinat-Feta-Quiche</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 20 Min + Backen</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="lunch">🥡 Kalt ideal</span>
+                            <span class="mealprep">🔄 Meal-Prep</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group-title">🌟 Für gemütliche Wochenend-Abende</div>
+                <div class="recipe-grid">
+                    <div class="recipe-card" data-id="11" onclick="toggleSelection(this)">
+                        <span class="recipe-number">11</span>
+                        <span class="recipe-title">Risotto mit grünem Spargel und Zitrone</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 35 Min</span>
+                            <span class="difficulty-medium">Mittel</span>
+                            <span class="seasonal">🌸 Spargel-Saison!</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="12" onclick="toggleSelection(this)">
+                        <span class="recipe-number">12</span>
+                        <span class="recipe-title">Randen-Ziegenkäse-Flammkuchen</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 20 Min</span>
+                            <span class="difficulty-medium">Mittel</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="13" onclick="toggleSelection(this)">
+                        <span class="recipe-number">13</span>
+                        <span class="recipe-title">Gefüllte Paprika mit Reis und Käse</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 60 Min</span>
+                            <span class="difficulty-medium">Mittel</span>
+                            <span class="lunch">🥡 Gut für Lunch</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="14" onclick="toggleSelection(this)">
+                        <span class="recipe-number">14</span>
+                        <span class="recipe-title">Pasta mit Bärlauch-Pesto und Cherrytomaten</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 25 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="seasonal">🌸 Bärlauch-Saison!</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="15" onclick="toggleSelection(this)">
+                        <span class="recipe-number">15</span>
+                        <span class="recipe-title">Gemüse-Curry mit Kichererbsen und Kokosmilch</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 30 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="mealprep">🔄 Wird besser am 2. Tag</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box" style="margin-top: 30px; background: #fff3e0; border-left-color: #ff9800;">
+                    <p>✨ <strong>Deine Auswahl:</strong> Wähle mindestens 5 Gerichte aus, damit wir einen abwechslungsreichen Plan erstellen können.</p>
+                </div>
+                
+                <button class="btn" id="nextBtn" onclick="goToPhase2()" disabled>
+                    Weiter zu meinem Wochenplan →
+                </button>
+            </div>
+            
+            <!-- Phase 2: Wochenplan -->
+            <div id="phase2" class="phase">
+                <h2 class="phase-title">Dein persönlicher Wochenplan</h2>
+                
+                <div class="info-box">
+                    <p>🎉 <strong>Fertig!</strong> Hier ist unser Vorschlag für die kommende Woche. </p>
+                    <p style="margin-top: 5px;">Die Gerichte sind so angeordnet, dass unter der Woche schnell gekocht werden kann und die Lunch-Optionen gut zum Mitnehmen geeignet sind.</p>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-step completed">1</div>
+                    <div class="progress-step active">2</div>
+                    <div class="progress-step">3</div>
+                    <div class="progress-step">4</div>
+                </div>
+                
+                <div id="weekPlanContent"></div>
+                
+                <button class="btn" onclick="goToPhase3()">
+                    Weiter zur Kochliste →
+                </button>
+            </div>
+            
+            <!-- Phase 3: Kochliste -->
+            <div id="phase3" class="phase">
+                <h2 class="phase-title">Deine Koch-Checkliste</h2>
+                
+                <div class="info-box">
+                    <p>👩‍🍳 <strong>So geht's am effizientesten:</strong></p>
+                    <p style="margin-top: 5px;">Hier sieht ihr, was wann vorbereitet werden kann, um unter der Woche Zeit zu sparen.</p>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-step completed">1</div>
+                    <div class="progress-step completed">2</div>
+                    <div class="progress-step active">3</div>
+                    <div class="progress-step">4</div>
+                </div>
+                
+                <div id="cookingListContent"></div>
+                
+                <button class="btn" onclick="goToPhase4()">
+                    Weiter zur Einkaufsliste →
+                </button>
+            </div>
+            
+            <!-- Phase 4: Einkaufsliste -->
+            <div id="phase4" class="phase">
+                <h2 class="phase-title">Deine Einkaufsliste für den Coop</h2>
+                
+                <div class="info-box">
+                    <p>🛒 <strong>Alles auf einen Blick:</strong></p>
+                    <p style="margin-top: 5px;">Die Liste ist nach Coop-Einkaufsbereichen sortiert. Wer einkaufen geht, kann abhaken und nichts vergessen.</p>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-step completed">1</div>
+                    <div class="progress-step completed">2</div>
+                    <div class="progress-step completed">3</div>
+                    <div class="progress-step active">4</div>
+                </div>
+                
+                <div id="shoppingListContent"></div>
+                
+                <div class="share-section">
+                    <h3>📤 Speichern oder teilen</h3>
+                    <p>Du kannst diesen Plan ausdrucken oder als PDF speichern:</p>
+                    <button class="btn" onclick="window.print()" style="margin: 10px auto;">
+                        🖨️ Plan ausdrucken / PDF speichern
+                    </button>
+                </div>
+                
+                <div class="info-box" style="margin-top: 20px; text-align: center;">
+                    <p>💝 <strong>Guten Appetit!</strong></p>
+                    <p style="margin-top: 5px; font-size: 0.9em;">Hoffentlich schmeckt's euch beiden. Bei Fragen oder Ideen für nächste Woche — ich bin immer für euch da.</p>
+                    <p style="margin-top: 5px; font-size: 0.85em; color: #667eea;">— Euer DonBo 🤖</p>
+                </div>
+                
+                <button class="btn" onclick="location.reload()">
+                    🔄 Neuen Plan erstellen
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedRecipes = [];
+        
+        const recipes = {
+            1: { name: "Couscous-Salat mit Kichererbsen und Feta", time: 20, lunch: true, dinner: false, mealprep: true, protein: "Kichererbsen, Feta", region: "Mittel" },
+            2: { name: "Linsen-Dal mit Reis", time: 25, lunch: true, dinner: true, mealprep: true, protein: "Rote Linsen", region: "Niedrig" },
+            3: { name: "Quinoa-Bowl mit Halloumi", time: 25, lunch: true, dinner: true, mealprep: false, protein: "Halloumi, Quinoa", region: "Mittel" },
+            4: { name: "One-Pot-Pasta Spinat-Ricotta", time: 20, lunch: false, dinner: true, mealprep: false, protein: "Ricotta", region: "Hoch" },
+            5: { name: "Gemüse-Frittata", time: 35, lunch: true, dinner: true, mealprep: true, protein: "Eier, Käse", region: "Hoch" },
+            6: { name: "Gnocchi mit Spargel-Rahmsauce", time: 15, lunch: false, dinner: true, mealprep: false, protein: "Rahm", region: "Hoch" },
+            7: { name: "Shakshuka", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Eier", region: "Mittel" },
+            8: { name: "Kürbis-Linsen-Eintopf", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Linsen", region: "Mittel" },
+            9: { name: "Ofengemüse mit Kichererbsen", time: 45, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Mittel" },
+            10: { name: "Spinat-Feta-Quiche", time: 55, lunch: true, dinner: true, mealprep: true, protein: "Eier, Feta", region: "Hoch" },
+            11: { name: "Spargel-Risotto", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch" },
+            12: { name: "Randen-Ziegenkäse-Flammkuchen", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Ziegenkäse", region: "Hoch" },
+            13: { name: "Gefüllte Paprika", time: 60, lunch: true, dinner: true, mealprep: false, protein: "Käse, Reis", region: "Hoch" },
+            14: { name: "Pasta Bärlauch-Pesto", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch" },
+            15: { name: "Gemüse-Curry", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Niedrig" }
+        };
+        
+        function toggleSelection(card) {
+            const id = parseInt(card.dataset.id);
+            
+            if (card.classList.contains('selected')) {
+                card.classList.remove('selected');
+                selectedRecipes = selectedRecipes.filter(r => r !== id);
+            } else {
+                if (selectedRecipes.length < 7) {
+                    card.classList.add('selected');
+                    selectedRecipes.push(id);
+                } else {
+                    alert('Maximal 7 Gerichte auswählbar. Bitte zuerst eines abwählen.');
+                }
+            }
+            
+            document.getElementById('selectedCount').textContent = selectedRecipes.length;
+            document.getElementById('nextBtn').disabled = selectedRecipes.length < 5;
+        }
+        
+        function goToPhase2() {
+            if (selectedRecipes.length < 5) return;
+            
+            document.getElementById('phase1').classList.remove('active');
+            document.getElementById('phase2').classList.add('active');
+            
+            generateWeekPlan();
+        }
+        
+        function generateWeekPlan() {
+            const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+            let html = '<table class="week-plan">';
+            html += '<tr><th>Tag</th><th>Mittag (Lunch)</th><th>Abend</th><th>Vorbereitung / Reste</th></tr>';
+            
+            // Filtere ausgewählte Rezepte nach Eigenschaften
+            const selectedData = selectedRecipes.map(id => ({id, ...recipes[id]}));
+            const lunchOptions = selectedData.filter(r => r.lunch);
+            const dinnerOptions = selectedData.filter(r => r.dinner || !r.lunch);
+            const mealPrepOptions = selectedData.filter(r => r.mealprep);
+            
+            // Wochenplan-Logik
+            let plan = [];
+            let usedForLunch = new Set();
+            let usedForDinner = new Set();
+            
+            days.forEach((day, index) => {
+                let lunch = '';
+                let dinner = '';
+                let prep = '';
+                
+                if (index < 5) { // Mo-Fr: Lunch zum Mitnehmen
+                    // Bevorzuge Meal-Prep-Gerichte für Lunch
+                    const availableLunch = lunchOptions.filter(r => !usedForLunch.has(r.id));
+                    if (availableLunch.length > 0) {
+                        // Wenn am Vortag ein Meal-Prep-Gericht zum Abendessen war, nimm Reste
+                        if (index > 0 && plan[index-1].dinner.mealprep && !usedForLunch.has(plan[index-1].dinner.id)) {
+                            lunch = {...plan[index-1].dinner, isLeftover: true};
+                            usedForLunch.add(plan[index-1].dinner.id);
+                        } else {
+                            lunch = availableLunch[0];
+                            usedForLunch.add(lunch.id);
+                        }
+                    } else if (lunchOptions.length > 0) {
+                        lunch = lunchOptions[index % lunchOptions.length];
+                    }
+                }
+                
+                // Abendessen
+                const availableDinner = dinnerOptions.filter(r => !usedForDinner.has(r.id));
+                if (availableDinner.length > 0) {
+                    dinner = availableDinner[0];
+                    usedForDinner.add(dinner.id);
+                } else if (dinnerOptions.length > 0) {
+                    dinner = dinnerOptions[index % dinnerOptions.length];
+                }
+                
+                // Vorbereitungs-Hinweise
+                if (dinner.mealprep && index < 5) {
+                    prep = `Mehr kochen → Lunch für ${days[index+1] || 'morgen'}`;
+                }
+                if (dinner.time > 40) {
+                    prep = prep ? prep + ', ' : '';
+                    prep += 'Aufwändig - am Wochenende kochen';
+                }
+                
+                plan.push({day, lunch, dinner, prep});
+            });
+            
+            // Tabelle generieren
+            plan.forEach(({day, lunch, dinner, prep}) => {
+                const lunchText = lunch ? (lunch.isLeftover ? `Reste: ${lunch.name}` : lunch.name) : 'Flexibel / Reste';
+                const dinnerText = dinner ? dinner.name : 'Flexibel';
+                html += `<tr><td><strong>${day}</strong></td><td>${lunchText}</td><td>${dinnerText}</td><td>${prep || '-'}</td></tr>`;
+            });
+            
+            html += '</table>';
+            
+            // Zusammenfassung
+            html += '<div class="info-box" style="margin-top: 20px;">';
+            html += '<h3>📊 Ausgewählte Gerichte:</h3>';
+            html += '<ul>';
+            selectedData.forEach(r => {
+                html += `<li><strong>${r.name}</strong> (${r.time} Min)${r.mealprep ? ' - Meal-Prep geeignet' : ''}${r.lunch ? ' - Lunch-geeignet' : ''}</li>`;
+            });
+            html += '</ul></div>';
+            
+            document.getElementById('weekPlanContent').innerHTML = html;
+        }
+        
+        function goToPhase3() {
+            document.getElementById('phase2').classList.remove('active');
+            document.getElementById('phase3').classList.add('active');
+            
+            const selectedData = selectedRecipes.map(id => ({id, ...recipes[id]}));
+            const mealPrepRecipes = selectedData.filter(r => r.mealprep);
+            const quickRecipes = selectedData.filter(r => r.time <= 25);
+            const weekendRecipes = selectedData.filter(r => r.time > 30);
+            
+            let html = '';
+            
+            // Sonntag Vorbereitung
+            if (mealPrepRecipes.length > 0) {
+                html += '<div class="info-box">';
+                html += '<h3>🍳 Sonntag (Vorbereitung)</h3>';
+                html += '<ul>';
+                mealPrepRecipes.forEach(r => {
+                    html += `<li><strong>${r.name}</strong> vorbereiten (${r.time} Min) - hält mehrere Tage</li>`;
+                });
+                html += '</ul>';
+                html += '</div>';
+            }
+            
+            // Wochenplan
+            html += '<div class="info-box">';
+            html += '<h3>📅 Unter der Woche</h3>';
+            html += '<ul>';
+            
+            // Schnelle Gerichte für unter der Woche
+            const weekDays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+            quickRecipes.forEach((r, i) => {
+                if (i < 5) {
+                    html += `<li><strong>${weekDays[i]}:</strong> ${r.name} (${r.time} Min)</li>`;
+                }
+            });
+            
+            // Reste-Logik
+            const leftoverRecipes = selectedData.filter(r => r.mealprep);
+            if (leftoverRecipes.length > 0) {
+                html += `<li><strong>Reste nutzen:</strong> ${leftoverRecipes.map(r => r.name).join(', ')}</li>`;
+            }
+            
+            html += '</ul>';
+            html += '</div>';
+            
+            // Wochenende
+            if (weekendRecipes.length > 0) {
+                html += '<div class="info-box">';
+                html += '<h3>🌟 Wochenende</h3>';
+                html += '<ul>';
+                weekendRecipes.forEach(r => {
+                    html += `<li><strong>${r.name}</strong> (${r.time} Min) - Zeit für aufwändigere Gerichte</li>`;
+                });
+                html += '</ul>';
+                html += '</div>';
+            }
+            
+            // Hinweise basierend auf Auswahl
+            html += '<div class="info-box">';
+            html += '<h3>⚠️ Wichtige Hinweise</h3>';
+            html += '<ul>';
+            
+            if (selectedData.some(r => r.name.includes('Pesto'))) {
+                html += '<li>Pesto nicht zu früh mit Pasta mischen (wird dunkel)</li>';
+            }
+            if (selectedData.some(r => r.name.includes('Salat'))) {
+                html += '<li>Salat-Dressing separat aufbewahren</li>';
+            }
+            if (selectedData.some(r => r.name.includes('Quiche'))) {
+                html += '<li>Quiche kalt oder leicht erwärmt essen</li>';
+            }
+            if (selectedData.some(r => r.name.includes('Risotto'))) {
+                html += '<li>Risotto am selben Tag essen (wird trocken beim Aufwärmen)</li>';
+            }
+            
+            html += '</ul>';
+            html += '</div>';
+            
+            document.getElementById('cookingListContent').innerHTML = html;
+        }
+        
+        function goToPhase4() {
+            document.getElementById('phase3').classList.remove('active');
+            document.getElementById('phase4').classList.add('active');
+            
+            const selectedData = selectedRecipes.map(id => ({id, ...recipes[id]}));
+            
+            // Dynamische Einkaufsliste basierend auf Auswahl
+            let ingredients = {};
+            
+            // Zutaten-Mapping für jedes Rezept
+            const recipeIngredients = {
+                1: { 'Gemüse und Früchte': ['Gurke 1 Stk', 'Tomaten 4 Stk', 'Rote Zwiebel 1 Stk'], 'Hülsenfrüchte/Getreide': ['Couscous 300g', 'Kichererbsen (Dose) 1x'], 'Milchprodukte': ['Feta 200g'], 'Gewürze/Vorrat': ['Zitrone 1 Stk', 'Olivenöl'] },
+                2: { 'Hülsenfrüchte/Getreide': ['Rote Linsen 300g', 'Basmatireis 300g'], 'Konserven': ['Kokosmilch 1 Dose'], 'Gewürze/Vorrat': ['Kurkuma', 'Kreuzkümmel', 'Knoblauch'] },
+                3: { 'Gemüse und Früchte': ['Radieschen 1 Bund', 'Avocado 1 Stk'], 'Hülsenfrücke/Getreide': ['Quinoa 200g'], 'Milchprodukte': ['Halloumi 200g'] },
+                4: { 'Gemüse und Früchte': ['Spinat 300g'], 'Hülsenfrücke/Getreide': ['Pasta 500g'], 'Milchprodukte': ['Ricotta 250g', 'Parmesan 50g'] },
+                5: { 'Gemüse und Früchte': ['Frühlingszwiebeln 1 Bund', 'Paprika 2 Stk'], 'Milchprodukte': ['Eier 6 Stk', 'Käse 150g'] },
+                6: { 'Gemüse und Früchte': ['Spargel 500g'], 'Hülsenfrücke/Getreide': ['Gnocchi 500g'], 'Milchprodukte': ['Rahm 200ml'] },
+                7: { 'Gemüse und Früchte': ['Paprika 2 Stk', 'Zwiebeln 2 Stk', 'Tomaten 4 Stk'], 'Milchprodukte': ['Eier 4 Stk'], 'Brot/Backwaren': ['Brot 1 Stk'] },
+                8: { 'Gemüse und Früchte': ['Kürbis 400g', 'Ingwer 1 Stk'], 'Hülsenfrücke/Getreide': ['Rote Linsen 200g'], 'Konserven': ['Kokosmilch 1 Dose'] },
+                9: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Aubergine 1 Stk'], 'Hülsenfrücke/Getreide': ['Kichererbsen (Dose) 1x'], 'Nüsse/Samen': ['Tahini 1 Glas'] },
+                10: { 'Gemüse und Früchte': ['Spinat 300g'], 'Milchprodukte': ['Eier 4 Stk', 'Feta 150g', 'Sahne 200ml'], 'Brot/Backwaren': ['Blätterteig 1 Rolle'] },
+                11: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Hülsenfrücke/Getreide': ['Risottoreis 250g'], 'Milchprodukte': ['Parmesan 100g'] },
+                12: { 'Gemüse und Früchte': ['Randen 300g', 'Zwiebeln 2 Stk'], 'Milchprodukte': ['Ziegenkäse 150g', 'Crème fraîche 200ml'], 'Brot/Backwaren': ['Flammkuchenteig 1 Stk'] },
+                13: { 'Gemüse und Früchte': ['Paprika 4 Stk'], 'Hülsenfrücke/Getreide': ['Reis 200g'], 'Milchprodukte': ['Käse 200g'] },
+                14: { 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Hülsenfrücke/Getreide': ['Pasta 400g'], 'Kräuter': ['Bärlauch 1 Bund'], 'Nüsse/Samen': ['Pinienkerne 50g'], 'Milchprodukte': ['Parmesan 50g'] },
+                15: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Spinat 200g'], 'Hülsenfrücke/Getreide': ['Kichererbsen (Dose) 1x', 'Basmatireis 200g'], 'Konserven': ['Kokosmilch 1 Dose'] }
+            };
+            
+            // Sammle Zutaten aus ausgewählten Rezepten
+            selectedRecipes.forEach(id => {
+                if (recipeIngredients[id]) {
+                    for (const [category, items] of Object.entries(recipeIngredients[id])) {
+                        if (!ingredients[category]) ingredients[category] = [];
+                        ingredients[category].push(...items);
+                    }
+                }
+            });
+            
+            // Wenn keine Rezepte ausgewählt, zeige Standard-Liste
+            if (Object.keys(ingredients).length === 0) {
+                ingredients = {
+                    'Gemüse und Früchte': ['Spargel 500g', 'Spinat 300g', 'Zucchini 2 Stk', 'Paprika 3 Stk', 'Cherrytomaten 250g', 'Zwiebeln 500g', 'Knoblauch 1 Kopf', 'Radieschen 1 Bund'],
+                    'Milchprodukte': ['Eier 12 Stk', 'Feta 200g', 'Ricotta 250g', 'Parmesan 100g', 'Halloumi 200g'],
+                    'Hülsenfrücke/Getreide': ['Kichererbsen (Dose) 2x', 'Rote Linsen 300g', 'Couscous 300g', 'Pasta 500g'],
+                    'Konserven': ['Kokosmilch 1 Dose', 'Gemüsebrühe 1 L']
+                };
+            }
+            
+            let html = '<div class="shopping-list">';
+            
+            for (const [category, items] of Object.entries(ingredients)) {
+                html += '<div class="shopping-category">';
+                html += `<h3>${category}</h3>`;
+                items.forEach(item => {
+                    html += `<div class="shopping-item">☐ ${item}</div>`;
+                });
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            document.getElementById('shoppingListContent').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
