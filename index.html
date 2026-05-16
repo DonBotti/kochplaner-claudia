@@ -649,21 +649,213 @@
         let selectedRecipes = [];
         
         const recipes = {
-            1: { name: "Couscous-Salat mit Kichererbsen und Feta", time: 20, lunch: true, dinner: false, mealprep: true, protein: "Kichererbsen, Feta", region: "Mittel", instructions: "Couscous mit heissem Wasser übergießen, 10 Min quellen lassen. Kichererbsen abtropfen, Gemüse würfeln, Feta bröseln. Alles mit Olivenöl und Zitrone abschmecken." },
-            2: { name: "Linsen-Dal mit Reis", time: 25, lunch: true, dinner: true, mealprep: true, protein: "Rote Linsen", region: "Niedrig", instructions: "Zwiebel und Knoblauch anschwitzen, Linsen und Gewürze zugeben. Mit Kokosmilch und Brühe aufgießen, 20 Min köcheln. Basmatireis separat kochen." },
-            3: { name: "Quinoa-Bowl mit Halloumi", time: 25, lunch: true, dinner: true, mealprep: false, protein: "Halloumi, Quinoa", region: "Mittel", instructions: "Quinoa 15 Min kochen. Halloumi in Scheiben braten. Gemüse schneiden, mit Zitronen-Dressing marinieren. Alles in einer Bowl anrichten." },
-            4: { name: "One-Pot-Pasta Spinat-Ricotta", time: 20, lunch: false, dinner: true, mealprep: false, protein: "Ricotta", region: "Hoch", instructions: "Pasta mit Gemüsebrühe und Spinat in einem Topf kochen, 12 Min köcheln. Ricotta und Parmesan unterheben, mit Pfeffer abschmecken." },
-            5: { name: "Gemüse-Frittata", time: 35, lunch: true, dinner: true, mealprep: true, protein: "Eier, Käse", region: "Hoch", instructions: "Gemüse anbraten, Eier mit Milch verquirlen, über das Gemüse gießen. Bei 180°C 20 Min backen. Kalt oder warm servieren." },
-            6: { name: "Gnocchi mit Spargel-Rahmsauce", time: 15, lunch: false, dinner: true, mealprep: false, protein: "Rahm", region: "Hoch", instructions: "Spargel blanchieren. Gnocchi in der Pfanne braten, Rahm zugeben, Spargel untermischen. Mit Parmesan und Zitrone servieren." },
-            7: { name: "Shakshuka", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Eier", region: "Mittel", instructions: "Zwiebeln und Paprika weich dünsten, Tomaten zugeben. Eier in die Sauce gleiten lassen, zugedeckt 8 Min pochieren. Mit Brot servieren." },
-            8: { name: "Kürbis-Linsen-Eintopf", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Linsen", region: "Mittel", instructions: "Kürbis würfeln, mit Linsen, Ingwer und Kokosmilch köcheln. 25 Min garen, mit Kreuzkümmel und Kurkuma würzen." },
-            9: { name: "Ofengemüse mit Kichererbsen", time: 45, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Mittel", instructions: "Gemüse würfeln, mit Kichererbsen und Olivenöl mischen. 30 Min bei 200°C backen. Tahini-Dressing separat zubereiten." },
-            10: { name: "Spinat-Feta-Quiche", time: 55, lunch: true, dinner: true, mealprep: true, protein: "Eier, Feta", region: "Hoch", instructions: "Blätterteig ausrollen, Spinat und Feta verteilen. Ei-Sahne-Guss darüber gießen. Bei 180°C 35 Min backen." },
-            11: { name: "Spargel-Risotto", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch", instructions: "Zwiegel anschwitzen, Risottoreis zugeben, mit Wein ablöschen. Nach und nach Brühe zugeben, 20 Min rühren. Spargel und Parmesan unterheben." },
-            12: { name: "Randen-Ziegenkäse-Flammkuchen", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Ziegenkäse", region: "Hoch", instructions: "Randen dünn hobeln, Zwiebeln karamellisieren. Teig belegen, Ziegenkäse darauf verteilen. 15 Min bei 220°C backen." },
-            13: { name: "Gefüllte Paprika", time: 60, lunch: true, dinner: true, mealprep: false, protein: "Käse, Reis", region: "Hoch", instructions: "Paprika aushöhlen. Reis mit Gemüse und Käse füllen, in die Paprika füllen. Mit Tomatensauce übergießen, 25 Min bei 180°C backen." },
-            14: { name: "Pasta Bärlauch-Pesto", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch", instructions: "Bärlauch mit Pinienkernen, Parmesan und Olivenöl pürieren. Pasta kochen, Pesto unterheben. Cherrytomaten halbieren und dazugeben." },
-            15: { name: "Gemüse-Curry", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Niedrig", instructions: "Gemüse anbraten, Currypaste und Kokosmilch zugeben. Kichererbsen hinzufügen, 15 Min köcheln. Mit Reis servieren." }
+            1: { 
+                name: "Couscous-Salat mit Kichererbsen und Feta", 
+                time: 20, lunch: true, dinner: false, mealprep: true, protein: "Kichererbsen, Feta", region: "Mittel",
+                ingredients: "200g Couscous, 1 Dose Kichererbsen (240g abgetropft), 1 Gurke, 250g Cherrytomaten, 1 rote Zwiebel, 150g Feta, 1 Zitrone, 3 EL Olivenöl, Salz, Pfeffer",
+                instructions: `
+                    <strong>Schritt 1:</strong> Couscous in eine Schüssel geben, mit 200ml heissem Wasser übergießen, Deckel drauf, 10 Min quellen lassen.<br>
+                    <strong>Schritt 2:</strong> Kichererbsen abtropfen, Gurke würfeln, Cherrytomaten halbieren, rote Zwiebel fein würfeln.<br>
+                    <strong>Schritt 3:</strong> Feta mit den Händen grob bröseln.<br>
+                    <strong>Schritt 4:</strong> Couscous mit einer Gabel auflockern, alle Zutaten mischen.<br>
+                    <strong>Schritt 5:</strong> Mit Olivenöl, Zitronensaft, Salz und Pfeffer abschmecken.<br>
+                    <strong>💡 Tipp:</strong> Dressing separat aufbewahren, wenn der Salat erst am nächsten Tag gegessen wird.
+                `
+            },
+            2: { 
+                name: "Linsen-Dal mit Reis", 
+                time: 25, lunch: true, dinner: true, mealprep: true, protein: "Rote Linsen", region: "Niedrig",
+                ingredients: "200g rote Linsen, 150g Basmatireis, 1 Zwiebel, 2 Knoblauchzehen, 1 EL Öl, 1 TL Kurkuma, 1 TL Kreuzkümmel, 400ml Kokosmilch, 200ml Gemüsebrühe, Salz",
+                instructions: `
+                    <strong>Schritt 1:</strong> Zwiebel und Knoblauch fein würfeln, in Öl 3 Min anschwitzen.<br>
+                    <strong>Schritt 2:</strong> Rote Linsen zugeben, mit Kurkuma und Kreuzkümmel bestäuben, kurz anrösten.<br>
+                    <strong>Schritt 3:</strong> Mit Kokosmilch und Gemüsebrühe aufgießen, aufkochen.<br>
+                    <strong>Schritt 4:</strong> Zugedeckt 20 Min bei mittlerer Hitze köcheln lassen, gelegentlich umrühren.<br>
+                    <strong>Schritt 5:</strong> Basmatireis separat nach Packungsanleitung kochen (ca. 10 Min).<br>
+                    <strong>Schritt 6:</strong> Dal mit Salz abschmecken, mit Reis servieren.<br>
+                    <strong>💡 Tipp:</strong> Wird am 2. Tag noch cremiger — perfekt für Meal Prep.
+                `
+            },
+            3: { 
+                name: "Quinoa-Bowl mit Halloumi", 
+                time: 25, lunch: true, dinner: true, mealprep: false, protein: "Halloumi, Quinoa", region: "Mittel",
+                ingredients: "150g Quinoa, 200g Halloumi, 1 Bund Radieschen, 1 Avocado, 100g Cherrytomaten, 1 Zitrone, 2 EL Olivenöl, Salz, Pfeffer",
+                instructions: `
+                    <strong>Schritt 1:</strong> Quinoa in einem Sieb kalt abspülen, mit 300ml Wasser aufkochen, 15 Min bei kleiner Hitze köcheln.<br>
+                    <strong>Schritt 2:</strong> Halloumi in 0.5cm dicke Scheiben schneiden, in einer Pfanne ohne Öl 3 Min pro Seite goldbraun braten.<br>
+                    <strong>Schritt 3:</strong> Radieschen in Scheiben schneiden, Avocado würfeln, Cherrytomaten halbieren.<br>
+                    <strong>Schritt 4:</strong> Zitronen-Dressing aus Zitronensaft, Olivenöl, Salz und Pfeffer anrühren.<br>
+                    <strong>Schritt 5:</strong> Quinoa in Bowls verteilen, Gemüse und Halloumi darauf anrichten, Dressing darüber träufeln.<br>
+                    <strong>💡 Tipp:</strong> Halloumi erst kurz vor dem Essen braten, sonst wird er zäh.
+                `
+            },
+            4: { 
+                name: "One-Pot-Pasta Spinat-Ricotta", 
+                time: 20, lunch: false, dinner: true, mealprep: false, protein: "Ricotta", region: "Hoch",
+                ingredients: "300g Pasta (Penne oder Fusilli), 200g frischer Spinat, 250g Ricotta, 50g Parmesan, 500ml Gemüsebrühe, 1 Zwiebel, 2 Knoblauchzehen, 2 EL Öl, Salz, Pfeffer",
+                instructions: `
+                    <strong>Schritt 1:</strong> Zwiebel und Knoblauch fein würfeln, in Öl 2 Min anschwitzen.<br>
+                    <strong>Schritt 2:</strong> Pasta, Spinat und Gemüsebrühe in den Topf geben, aufkochen.<br>
+                    <strong>Schritt 3:</strong> 12 Min bei mittlerer Hitze köcheln lassen, dabei gelegentlich umrühren.<br>
+                    <strong>Schritt 4:</strong> Wenn die Flüssigkeit fast aufgesogen ist, Ricotta und Parmesan unterheben.<br>
+                    <strong>Schritt 5:</strong> Mit Salz und Pfeffer abschmecken, sofort servieren.<br>
+                    <strong>💡 Tipp:</strong> Nicht zu lange stehen lassen — Ricotta wird trocken beim Aufwärmen.
+                `
+            },
+            5: { 
+                name: "Gemüse-Frittata", 
+                time: 35, lunch: true, dinner: true, mealprep: true, protein: "Eier, Käse", region: "Hoch",
+                ingredients: "6 Eier, 100ml Milch, 1 Bund Frühlingszwiebeln, 1 rote Paprika, 100g Käse (z.B. Bergkäse), 2 EL Öl, Salz, Pfeffer, Butter für die Form",
+                instructions: `
+                    <strong>Schritt 1:</strong> Ofen auf 180°C vorheizen. Eier mit Milch verquirlen, mit Salz und Pfeffer würzen.<br>
+                    <strong>Schritt 2:</strong> Frühlingszwiebeln in Ringe schneiden, Paprika würfeln.<br>
+                    <strong>Schritt 3:</strong> Gemüse in einer ofenfesten Pfanne 5 Min anbraten.<br>
+                    <strong>Schritt 4:</strong> Ei-Milch-Mischung über das Gemüse gießen, Käse darüber streuen.<br>
+                    <strong>Schritt 5:</strong> Bei 180°C 20 Min backen, bis die Oberfläche goldbraun ist.<br>
+                    <strong>Schritt 6:</strong> Kalt oder warm servieren — hält 2 Tage im Kühlschrank.<br>
+                    <strong>💡 Tipp:</strong> Am Vorabend backen, am nächsten Tag kalt als Lunch mitnehmen.
+                `
+            },
+            6: { 
+                name: "Gnocchi mit Spargel-Rahmsauce", 
+                time: 15, lunch: false, dinner: true, mealprep: false, protein: "Rahm", region: "Hoch",
+                ingredients: "400g Gnocchi (frisch oder aus dem Kühlregal), 400g grüner Spargel, 200ml Rahm, 1 Zitrone, 50g Parmesan, 2 EL Butter, Salz, Pfeffer",
+                instructions: `
+                    <strong>Schritt 1:</strong> Spargel waschen, holzige Enden abschneiden, in 3cm Stücke schneiden.<br>
+                    <strong>Schritt 2:</strong> Spargel 3 Min in kochendem Salzwasser blanchieren, abtropfen.<br>
+                    <strong>Schritt 3:</strong> Butter in einer Pfanne schmelzen, Gnocchi 5 Min goldbraun braten.<br>
+                    <strong>Schritt 4:</strong> Rahm zugeben, aufkochen lassen, Spargel untermischen.<br>
+                    <strong>Schritt 5:</strong> Mit Zitronensaft, Salz und Pfeffer abschmecken, Parmesan darüber reiben.<br>
+                    <strong>💡 Tipp:</strong> Frischer grüner Spargel ist im Mai am besten — nicht zu lange kochen!
+                `
+            },
+            7: { 
+                name: "Shakshuka", 
+                time: 25, lunch: false, dinner: true, mealprep: false, protein: "Eier", region: "Mittel",
+                ingredients: "4 Eier, 1 Dose stückige Tomaten (400g), 1 rote Paprika, 1 Zwiebel, 2 Knoblauchzehen, 2 EL Olivenöl, 1 TL Kreuzkümmel, 1 TL Paprikapulver, Brot zum Dippen",
+                instructions: `
+                    <strong>Schritt 1:</strong> Zwiebel und Paprika würfeln, Knoblauch fein hacken.<br>
+                    <strong>Schritt 2:</strong> In Olivenöl 5 Min weich dünsten.<br>
+                    <strong>Schritt 3:</strong> Tomaten zugeben, mit Kreuzkümmel und Paprika würzen, 10 Min köcheln.<br>
+                    <strong>Schritt 4:</strong> Mit dem Löffel 4 Vertiefungen in die Sauce drücken, Eier hineingleiten lassen.<br>
+                    <strong>Schritt 5:</strong> Zugedeckt 8 Min pochieren, bis das Eiweiss fest ist.<br>
+                    <strong>Schritt 6:</strong> Mit frischem Brot servieren.<br>
+                    <strong>💡 Tipp:</strong> Eigelb sollte noch flüssig sein — nicht zu lange kochen.
+                `
+            },
+            8: { 
+                name: "Kürbis-Linsen-Eintopf", 
+                time: 30, lunch: true, dinner: true, mealprep: true, protein: "Linsen", region: "Mittel",
+                ingredients: "400g Hokkaido-Kürbis, 150g rote Linsen, 1 Zwiebel, 2cm Ingwer, 400ml Kokosmilch, 200ml Gemüsebrühe, 1 TL Kreuzkümmel, 1 TL Kurkuma, 2 EL Öl",
+                instructions: `
+                    <strong>Schritt 1:</strong> Kürbis halbieren, Kerne entfernen, in 2cm Würfel schneiden (Schale kann dranbleiben).<br>
+                    <strong>Schritt 2:</strong> Zwiebel würfeln, Ingwer fein reiben.<br>
+                    <strong>Schritt 3:</strong> In Öl 3 Min anschwitzen, Kürbis und Linsen zugeben.<br>
+                    <strong>Schritt 4:</strong> Mit Kokosmilch und Brühe aufgießen, aufkochen.<br>
+                    <strong>Schritt 5:</strong> 25 Min bei mittlerer Hitze köcheln, bis der Kürbis weich ist.<br>
+                    <strong>Schritt 6:</strong> Mit Kreuzkümmel und Kurkuma würzen, mit einem Stabmixer kurz pürieren (optional).<br>
+                    <strong>💡 Tipp:</strong> Wird am 2. Tag noch cremiger und intensiver im Geschmack.
+                `
+            },
+            9: { 
+                name: "Ofengemüse mit Kichererbsen", 
+                time: 45, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Mittel",
+                ingredients: "2 Zucchini, 2 rote Paprika, 1 Aubergine, 1 Dose Kichererbsen (240g abgetropft), 3 EL Olivenöl, 1 TL Paprikapulver, Salz, Pfeffer, 3 EL Tahini, 1 Zitrone",
+                instructions: `
+                    <strong>Schritt 1:</strong> Ofen auf 200°C vorheizen. Gemüse in 2cm Würfel schneiden.<br>
+                    <strong>Schritt 2:</strong> Gemüse und Kichererbsen auf ein Backblech geben, mit Olivenöl, Paprikapulver, Salz und Pfeffer mischen.<br>
+                    <strong>Schritt 3:</strong> 30 Min im Ofen backen, nach 15 Min wenden.<br>
+                    <strong>Schritt 4:</strong> Tahini-Dressing: Tahini mit Zitronensaft, etwas Wasser und Salz verrühren (cremig).<br>
+                    <strong>Schritt 5:</strong> Ofengemüse mit Dressing beträufeln, warm oder kalt servieren.<br>
+                    <strong>💡 Tipp:</strong> Hält 3 Tage im Kühlschrank — perfekt für Meal Prep.
+                `
+            },
+            10: { 
+                name: "Spinat-Feta-Quiche", 
+                time: 55, lunch: true, dinner: true, mealprep: true, protein: "Eier, Feta", region: "Hoch",
+                ingredients: "1 Rolle Blätterteig (fertig), 300g Blattspinat, 150g Feta, 3 Eier, 200ml Sahne, 1 Zwiebel, 2 EL Öl, Salz, Pfeffer, Muskat",
+                instructions: `
+                    <strong>Schritt 1:</strong> Ofen auf 180°C vorheizen. Blätterteig in eine gefettete Form legen, Boden mit Gabel einstechen.<br>
+                    <strong>Schritt 2:</strong> Zwiebel würfeln, Spinat kurz in Öl zusammenfallen lassen, abtropfen lassen.<br>
+                    <strong>Schritt 3:</strong> Spinat und Feta auf dem Teig verteilen.<br>
+                    <strong>Schritt 4:</strong> Eier mit Sahne verquirlen, mit Salz, Pfeffer und Muskat würzen, darüber gießen.<br>
+                    <strong>Schritt 5:</strong> Bei 180°C 35 Min backen, bis die Oberfläche goldbraun ist.<br>
+                    <strong>Schritt 6:</strong> Abkühlen lassen, kalt oder leicht erwärmt servieren.<br>
+                    <strong>💡 Tipp:</strong> Am Vorabend backen — hält 2-3 Tage, ideal für Lunch.
+                `
+            },
+            11: { 
+                name: "Spargel-Risotto", 
+                time: 35, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch",
+                ingredients: "300g Risottoreis (Arborio), 400g grüner Spargel, 1 Zwiebel, 100ml Weisswein (optional, sonst mehr Brühe), 800ml Gemüsebrühe (warm), 50g Parmesan, 2 EL Butter, 1 Zitrone",
+                instructions: `
+                    <strong>Schritt 1:</strong> Spargel waschen, holzige Enden abschneiden, in 3cm Stücke schneiden.<br>
+                    <strong>Schritt 2:</strong> Zwiebel fein würfeln, in Butter 2 Min anschwitzen.<br>
+                    <strong>Schritt 3:</strong> Reis zugeben, 2 Min mit anschwitzen, mit Wein ablöschen.<br>
+                    <strong>Schritt 4:</strong> Nach und nach warme Brühe zugeben (jeweils 1 Schöpflöffel), dabei ständig rühren.<br>
+                    <strong>Schritt 5:</strong> Nach 15 Min Spargel zugeben, weiterköcheln bis der Reis cremig ist (ca. 20 Min insgesamt).<br>
+                    <strong>Schritt 6:</strong> Butter und Parmesan unterheben, mit Zitronensaft abschmecken.<br>
+                    <strong>💡 Tipp:</strong> Risotto will Aufmerksamkeit — nicht allein lassen! Am selben Tag essen.
+                `
+            },
+            12: { 
+                name: "Randen-Ziegenkäse-Flammkuchen", 
+                time: 35, lunch: false, dinner: true, mealprep: false, protein: "Ziegenkäse", region: "Hoch",
+                ingredients: "1 Flammkuchenteig (fertig oder selbstgemacht), 2 Randen (Rote Bete), 150g Ziegenkäse, 1 Zwiebel, 3 EL Crème fraîche, 1 EL Honig, 2 EL Öl, Salz, Pfeffer",
+                instructions: `
+                    <strong>Schritt 1:</strong> Ofen auf 220°C vorheizen. Randen schälen, sehr dünn hobeln oder mit der Reibe raspeln.<br>
+                    <strong>Schritt 2:</strong> Zwiebel in feine Ringe schneiden, in Öl 10 Min karamellisieren.<br>
+                    <strong>Schritt 3:</strong> Teig ausrollen, Crème fraîche dünn streichen.<br>
+                    <strong>Schritt 4:</strong> Randen und Zwiebeln gleichmässig verteilen, Ziegenkäse darüber bröseln.<br>
+                    <strong>Schritt 5:</strong> Mit Honig beträufeln, Salz und Pfeffer darüber streuen.<br>
+                    <strong>Schritt 6:</strong> 12-15 Min im Ofen backen, bis der Rand knusprig ist.<br>
+                    <strong>💡 Tipp:</strong> Frischer Ziegenkäse schmilzt besser als alter — beim Käser fragen.
+                `
+            },
+            13: { 
+                name: "Gefüllte Paprika", 
+                time: 60, lunch: true, dinner: true, mealprep: false, protein: "Käse, Reis", region: "Hoch",
+                ingredients: "4 grosse Paprika (bunt), 150g Reis, 1 Zwiebel, 2 Knoblauchzehen, 200g Käse (z.B. Mozzarella oder Gouda), 1 Dose stückige Tomaten (400g), 2 EL Öl, Salz, Pfeffer, Oregano",
+                instructions: `
+                    <strong>Schritt 1:</strong> Ofen auf 180°C vorheizen. Paprika waschen, Deckel abschneiden, Kerne und weisse Innenhäute entfernen.<br>
+                    <strong>Schritt 2:</strong> Reis nach Packungsanleitung kochen (ca. 10 Min).<br>
+                    <strong>Schritt 3:</strong> Zwiebel und Knoblauch würfeln, in Öl 3 Min anschwitzen.<br>
+                    <strong>Schritt 4:</strong> Reis, Zwiebelmischung und die Hälfte des Käses vermischen, mit Salz, Pfeffer und Oregano würzen.<br>
+                    <strong>Schritt 5:</strong> Paprika mit der Mischung füllen, in eine ofenfeste Form stellen.<br>
+                    <strong>Schritt 6:</strong> Tomaten um die Paprika herum verteilen, restlichen Käse darüber streuen.<br>
+                    <strong>Schritt 7:</strong> Bei 180°C 25 Min backen, bis der Käse goldbraun ist.<br>
+                    <strong>💡 Tipp:</strong> Paprika vor dem Füllen innen leicht salzen — gibt mehr Geschmack.
+                `
+            },
+            14: { 
+                name: "Pasta Bärlauch-Pesto", 
+                time: 25, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch",
+                ingredients: "300g Pasta (z.B. Spaghetti oder Penne), 1 Bund Bärlauch (ca. 50g), 50g Pinienkerne, 50g Parmesan, 100ml Olivenöl, 200g Cherrytomaten, Salz, Pfeffer",
+                instructions: `
+                    <strong>Schritt 1:</strong> Bärlauch waschen, grobe Stiele entfernen.<br>
+                    <strong>Schritt 2:</strong> Bärlauch mit Pinienkernen, Parmesan und Olivenöl im Mixer pürieren (oder im Mörser zerstampfen).<br>
+                    <strong>Schritt 3:</strong> Pasta in reichlich Salzwasser al dente kochen (ca. 2 Min weniger als auf der Packung).<br>
+                    <strong>Schritt 4:</strong> Cherrytomaten halbieren.<br>
+                    <strong>Schritt 5:</strong> Pasta abtropfen, 1 Schöpflöffel Nudelwasser auffangen.<br>
+                    <strong>Schritt 6:</strong> Pasta mit Pesto und Nudelwasser vermischen, Tomaten unterheben.<br>
+                    <strong>💡 Tipp:</strong> Pesto nicht zu früh mit Pasta mischen — wird dunkel. Am besten frisch zubereiten.
+                `
+            },
+            15: { 
+                name: "Gemüse-Curry", 
+                time: 30, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Niedrig",
+                ingredients: "2 Zucchini, 1 rote Paprika, 200g Spinat, 1 Dose Kichererbsen (240g abgetropft), 1 Dose Kokosmilch (400ml), 2 EL Currypaste (mild oder scharf), 1 Zwiebel, 2 EL Öl, 150g Basmatireis",
+                instructions: `
+                    <strong>Schritt 1:</strong> Zucchini und Paprika würfeln, Zwiebel hacken, Spinat grob schneiden.<br>
+                    <strong>Schritt 2:</strong> Zwiebel in Öl 2 Min anschwitzen, Zucchini und Paprika 5 Min anbraten.<br>
+                    <strong>Schritt 3:</strong> Currypaste zugeben, 1 Min mitrösten.<br>
+                    <strong>Schritt 4:</strong> Kokosmilch zugeben, aufkochen lassen.<br>
+                    <strong>Schritt 5:</strong> Kichererbsen und Spinat zugeben, 10 Min köcheln.<br>
+                    <strong>Schritt 6:</strong> Basmatireis separat kochen (ca. 10 Min).<br>
+                    <strong>Schritt 7:</strong> Curry mit Salz abschmecken, mit Reis servieren.<br>
+                    <strong>💡 Tipp:</strong> Wird am 2. Tag noch intensiver im Geschmack — perfekt für Meal Prep.
+                `
+            }
         };
         
         function toggleSelection(card) {
@@ -833,14 +1025,15 @@
             
             // ZUBEREITUNGSHINWEISE für ausgewählte Gerichte
             html += '<div class="info-box" style="background: #e8f5e9; border-left-color: #4caf50;">';
-            html += '<h3>👨‍🍳 Zubereitungshinweise</h3>';
-            html += '<p style="margin-bottom: 10px;">Hier findet ihr kurze Anleitungen für die ausgewählten Gerichte:</p>';
+            html += '<h3>👨‍🍳 Ausführliche Zubereitungshinweise</h3>';
+            html += '<p style="margin-bottom: 10px;">Hier findet ihr Schritt-für-Schritt Anleitungen mit Mengenangaben für die ausgewählten Gerichte:</p>';
             
             selectedData.forEach(r => {
-                html += '<div style="margin-bottom: 15px; padding: 10px; background: white; border-radius: 8px;">';
-                html += `<h4 style="color: #667eea; margin-bottom: 5px;">${r.name}</h4>`;
-                html += `<p style="font-size: 0.95em; line-height: 1.5;">${r.instructions}</p>`;
-                html += `<p style="font-size: 0.85em; color: #666; margin-top: 5px;">⏱️ ${r.time} Min | 🥩 Protein: ${r.protein}</p>`;
+                html += '<div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">';
+                html += `<h4 style="color: #667eea; margin-bottom: 8px; font-size: 1.1em;">${r.name}</h4>`;
+                html += `<p style="font-size: 0.9em; color: #555; margin-bottom: 10px; font-style: italic;">🛒 Zutaten: ${r.ingredients}</p>`;
+                html += `<div style="font-size: 0.95em; line-height: 1.6;">${r.instructions}</div>`;
+                html += `<p style="font-size: 0.85em; color: #666; margin-top: 10px; padding-top: 8px; border-top: 1px dotted #ddd;">⏱️ ${r.time} Min | 🥩 Protein: ${r.protein} | 🌍 Regionalität: ${r.region}</p>`;
                 html += '</div>';
             });
             
