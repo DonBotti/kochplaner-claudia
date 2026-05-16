@@ -649,21 +649,21 @@
         let selectedRecipes = [];
         
         const recipes = {
-            1: { name: "Couscous-Salat mit Kichererbsen und Feta", time: 20, lunch: true, dinner: false, mealprep: true, protein: "Kichererbsen, Feta", region: "Mittel" },
-            2: { name: "Linsen-Dal mit Reis", time: 25, lunch: true, dinner: true, mealprep: true, protein: "Rote Linsen", region: "Niedrig" },
-            3: { name: "Quinoa-Bowl mit Halloumi", time: 25, lunch: true, dinner: true, mealprep: false, protein: "Halloumi, Quinoa", region: "Mittel" },
-            4: { name: "One-Pot-Pasta Spinat-Ricotta", time: 20, lunch: false, dinner: true, mealprep: false, protein: "Ricotta", region: "Hoch" },
-            5: { name: "Gemüse-Frittata", time: 35, lunch: true, dinner: true, mealprep: true, protein: "Eier, Käse", region: "Hoch" },
-            6: { name: "Gnocchi mit Spargel-Rahmsauce", time: 15, lunch: false, dinner: true, mealprep: false, protein: "Rahm", region: "Hoch" },
-            7: { name: "Shakshuka", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Eier", region: "Mittel" },
-            8: { name: "Kürbis-Linsen-Eintopf", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Linsen", region: "Mittel" },
-            9: { name: "Ofengemüse mit Kichererbsen", time: 45, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Mittel" },
-            10: { name: "Spinat-Feta-Quiche", time: 55, lunch: true, dinner: true, mealprep: true, protein: "Eier, Feta", region: "Hoch" },
-            11: { name: "Spargel-Risotto", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch" },
-            12: { name: "Randen-Ziegenkäse-Flammkuchen", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Ziegenkäse", region: "Hoch" },
-            13: { name: "Gefüllte Paprika", time: 60, lunch: true, dinner: true, mealprep: false, protein: "Käse, Reis", region: "Hoch" },
-            14: { name: "Pasta Bärlauch-Pesto", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch" },
-            15: { name: "Gemüse-Curry", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Niedrig" }
+            1: { name: "Couscous-Salat mit Kichererbsen und Feta", time: 20, lunch: true, dinner: false, mealprep: true, protein: "Kichererbsen, Feta", region: "Mittel", instructions: "Couscous mit heissem Wasser übergießen, 10 Min quellen lassen. Kichererbsen abtropfen, Gemüse würfeln, Feta bröseln. Alles mit Olivenöl und Zitrone abschmecken." },
+            2: { name: "Linsen-Dal mit Reis", time: 25, lunch: true, dinner: true, mealprep: true, protein: "Rote Linsen", region: "Niedrig", instructions: "Zwiebel und Knoblauch anschwitzen, Linsen und Gewürze zugeben. Mit Kokosmilch und Brühe aufgießen, 20 Min köcheln. Basmatireis separat kochen." },
+            3: { name: "Quinoa-Bowl mit Halloumi", time: 25, lunch: true, dinner: true, mealprep: false, protein: "Halloumi, Quinoa", region: "Mittel", instructions: "Quinoa 15 Min kochen. Halloumi in Scheiben braten. Gemüse schneiden, mit Zitronen-Dressing marinieren. Alles in einer Bowl anrichten." },
+            4: { name: "One-Pot-Pasta Spinat-Ricotta", time: 20, lunch: false, dinner: true, mealprep: false, protein: "Ricotta", region: "Hoch", instructions: "Pasta mit Gemüsebrühe und Spinat in einem Topf kochen, 12 Min köcheln. Ricotta und Parmesan unterheben, mit Pfeffer abschmecken." },
+            5: { name: "Gemüse-Frittata", time: 35, lunch: true, dinner: true, mealprep: true, protein: "Eier, Käse", region: "Hoch", instructions: "Gemüse anbraten, Eier mit Milch verquirlen, über das Gemüse gießen. Bei 180°C 20 Min backen. Kalt oder warm servieren." },
+            6: { name: "Gnocchi mit Spargel-Rahmsauce", time: 15, lunch: false, dinner: true, mealprep: false, protein: "Rahm", region: "Hoch", instructions: "Spargel blanchieren. Gnocchi in der Pfanne braten, Rahm zugeben, Spargel untermischen. Mit Parmesan und Zitrone servieren." },
+            7: { name: "Shakshuka", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Eier", region: "Mittel", instructions: "Zwiebeln und Paprika weich dünsten, Tomaten zugeben. Eier in die Sauce gleiten lassen, zugedeckt 8 Min pochieren. Mit Brot servieren." },
+            8: { name: "Kürbis-Linsen-Eintopf", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Linsen", region: "Mittel", instructions: "Kürbis würfeln, mit Linsen, Ingwer und Kokosmilch köcheln. 25 Min garen, mit Kreuzkümmel und Kurkuma würzen." },
+            9: { name: "Ofengemüse mit Kichererbsen", time: 45, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Mittel", instructions: "Gemüse würfeln, mit Kichererbsen und Olivenöl mischen. 30 Min bei 200°C backen. Tahini-Dressing separat zubereiten." },
+            10: { name: "Spinat-Feta-Quiche", time: 55, lunch: true, dinner: true, mealprep: true, protein: "Eier, Feta", region: "Hoch", instructions: "Blätterteig ausrollen, Spinat und Feta verteilen. Ei-Sahne-Guss darüber gießen. Bei 180°C 35 Min backen." },
+            11: { name: "Spargel-Risotto", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch", instructions: "Zwiegel anschwitzen, Risottoreis zugeben, mit Wein ablöschen. Nach und nach Brühe zugeben, 20 Min rühren. Spargel und Parmesan unterheben." },
+            12: { name: "Randen-Ziegenkäse-Flammkuchen", time: 35, lunch: false, dinner: true, mealprep: false, protein: "Ziegenkäse", region: "Hoch", instructions: "Randen dünn hobeln, Zwiebeln karamellisieren. Teig belegen, Ziegenkäse darauf verteilen. 15 Min bei 220°C backen." },
+            13: { name: "Gefüllte Paprika", time: 60, lunch: true, dinner: true, mealprep: false, protein: "Käse, Reis", region: "Hoch", instructions: "Paprika aushöhlen. Reis mit Gemüse und Käse füllen, in die Paprika füllen. Mit Tomatensauce übergießen, 25 Min bei 180°C backen." },
+            14: { name: "Pasta Bärlauch-Pesto", time: 25, lunch: false, dinner: true, mealprep: false, protein: "Parmesan", region: "Hoch", instructions: "Bärlauch mit Pinienkernen, Parmesan und Olivenöl pürieren. Pasta kochen, Pesto unterheben. Cherrytomaten halbieren und dazugeben." },
+            15: { name: "Gemüse-Curry", time: 30, lunch: true, dinner: true, mealprep: true, protein: "Kichererbsen", region: "Niedrig", instructions: "Gemüse anbraten, Currypaste und Kokosmilch zugeben. Kichererbsen hinzufügen, 15 Min köcheln. Mit Reis servieren." }
         };
         
         function toggleSelection(card) {
@@ -830,6 +830,21 @@
                 html += '</ul>';
                 html += '</div>';
             }
+            
+            // ZUBEREITUNGSHINWEISE für ausgewählte Gerichte
+            html += '<div class="info-box" style="background: #e8f5e9; border-left-color: #4caf50;">';
+            html += '<h3>👨‍🍳 Zubereitungshinweise</h3>';
+            html += '<p style="margin-bottom: 10px;">Hier findet ihr kurze Anleitungen für die ausgewählten Gerichte:</p>';
+            
+            selectedData.forEach(r => {
+                html += '<div style="margin-bottom: 15px; padding: 10px; background: white; border-radius: 8px;">';
+                html += `<h4 style="color: #667eea; margin-bottom: 5px;">${r.name}</h4>`;
+                html += `<p style="font-size: 0.95em; line-height: 1.5;">${r.instructions}</p>`;
+                html += `<p style="font-size: 0.85em; color: #666; margin-top: 5px;">⏱️ ${r.time} Min | 🥩 Protein: ${r.protein}</p>`;
+                html += '</div>';
+            });
+            
+            html += '</div>';
             
             // Hinweise basierend auf Auswahl
             html += '<div class="info-box">';
