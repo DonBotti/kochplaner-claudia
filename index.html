@@ -422,6 +422,41 @@
                     </div>
                 </div>
                 
+                <div class="group-title">🐟 Pescetarische Gerichte (mit Fisch)</div>
+                <div class="recipe-grid">
+                    <div class="recipe-card" data-id="16" onclick="toggleSelection(this)">
+                        <span class="recipe-number">16</span>
+                        <span class="recipe-title">Lachsfilet mit Spargel und Zitronenbutter</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 25 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="seasonal">🌸 Spargel-Saison!</span>
+                            <span class="lunch">🥡 Lunch-geeignet</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="17" onclick="toggleSelection(this)">
+                        <span class="recipe-number">17</span>
+                        <span class="recipe-title">Thunfisch-Pasta mit Tomaten und Kapern</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 20 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="lunch">🥡 Kalt als Lunch</span>
+                            <span class="mealprep">🔄 Meal-Prep</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card" data-id="18" onclick="toggleSelection(this)">
+                        <span class="recipe-number">18</span>
+                        <span class="recipe-title">Gebratener Seelachs mit Kartoffel-Gurken-Salat</span>
+                        <div class="recipe-meta">
+                            <span class="time">⏱️ 30 Min</span>
+                            <span class="difficulty-easy">Einfach</span>
+                            <span class="lunch">🥡 Lunch-geeignet</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="group-title">⚡ Schnell zubereitet nach dem Arbeiten</div>
                 <div class="recipe-grid">
                     <div class="recipe-card" data-id="4" onclick="toggleSelection(this)">
@@ -892,6 +927,50 @@
                     <strong>Schritt 6:</strong> Basmatireis separat kochen (ca. 10 Min).<br>
                     <strong>Schritt 7:</strong> Curry mit Salz abschmecken, mit Reis servieren.<br>
                     <strong>💡 Tipp:</strong> Wird am 2. Tag noch intensiver im Geschmack — perfekt für Meal Prep.
+                `
+            },
+            16: { 
+                name: "Lachsfilet mit Spargel und Zitronenbutter", 
+                time: 25, lunch: true, dinner: true, mealprep: false, protein: "Lachs", region: "Hoch",
+                ingredients: "2 Lachsfilets (à 150g), 400g grüner Spargel, 50g Butter, 1 Zitrone, 1 Knoblauchzehe, Salz, Pfeffer, 1 EL Öl",
+                instructions: `
+                    <strong>Schritt 1:</strong> Spargel waschen, holzige Enden abschneiden.<br>
+                    <strong>Schritt 2:</strong> Lachsfilets mit Salz und Pfeffer würzen.<br>
+                    <strong>Schritt 3:</strong> Spargel 5 Min in kochendem Salzwasser blanchieren, abtropfen.<br>
+                    <strong>Schritt 4:</strong> Lachs in einer Pfanne mit Öl 4 Min pro Seite braten (Hautseite zuerst).<br>
+                    <strong>Schritt 5:</strong> Butter in einem kleinen Topf schmelzen, Knoblauch pressen, Zitronensaft zugeben.<br>
+                    <strong>Schritt 6:</strong> Lachs und Spargel anrichten, Zitronenbutter darüber träufeln.<br>
+                    <strong>💡 Tipp:</strong> Lachs nicht zu lange braten — innen noch leicht rosa lassen.
+                `
+            },
+            17: { 
+                name: "Thunfisch-Pasta mit Tomaten und Kapern", 
+                time: 20, lunch: true, dinner: true, mealprep: true, protein: "Thunfisch", region: "Mittel",
+                ingredients: "300g Pasta, 1 Dose Thunfisch (150g abgetropft), 250g Cherrytomaten, 2 EL Kapern, 1 Knoblauchzehe, 3 EL Olivenöl, 1 Zitrone, Salz, Pfeffer, Petersilie",
+                instructions: `
+                    <strong>Schritt 1:</strong> Pasta in Salzwasser al dente kochen.<br>
+                    <strong>Schritt 2:</strong> Cherrytomaten halbieren, Knoblauch fein hacken.<br>
+                    <strong>Schritt 3:</strong> Olivenöl in einer Pfanne erhitzen, Knoblauch 1 Min anschwitzen.<br>
+                    <strong>Schritt 4:</strong> Thunfisch mit Gabel zerdrücken, zu den Tomaten in die Pfanne geben.<br>
+                    <strong>Schritt 5:</strong> Kapern und Zitronensaft zugeben, 3 Min köcheln.<br>
+                    <strong>Schritt 6:</strong> Pasta abtropfen, zur Sauce geben, vermischen.<br>
+                    <strong>Schritt 7:</strong> Mit Salz, Pfeffer und Petersilie abschmecken.<br>
+                    <strong>💡 Tipp:</strong> Kalt am nächsten Tag als Pasta-Salat geniessbar.
+                `
+            },
+            18: { 
+                name: "Gebratener Seelachs mit Kartoffel-Gurken-Salat", 
+                time: 30, lunch: true, dinner: true, mealprep: false, protein: "Seelachs", region: "Hoch",
+                ingredients: "2 Seelachsfilets (à 150g), 400g Kartoffeln, 1 Gurke, 1 Zwiebel, 3 EL Öl, 2 EL Essig, 1 TL Senf, Salz, Pfeffer, Dill",
+                instructions: `
+                    <strong>Schritt 1:</strong> Kartoffeln kochen, abkühlen lassen, in Scheiben schneiden.<br>
+                    <strong>Schritt 2:</strong> Gurke in Scheiben schneiden, Zwiebel in Ringe schneiden.<br>
+                    <strong>Schritt 3:</strong> Aus Öl, Essig, Senf, Salz und Pfeffer ein Dressing anrühren.<br>
+                    <strong>Schritt 4:</strong> Kartoffeln, Gurke und Zwiebel mit dem Dressing mischen, Dill darüber streuen.<br>
+                    <strong>Schritt 5:</strong> Seelachsfilets mit Salz und Pfeffer würzen.<br>
+                    <strong>Schritt 6:</strong> In einer Pfanne mit Öl 4 Min pro Seite braten, bis die Oberfläche goldbraun ist.<br>
+                    <strong>Schritt 7:</strong> Fisch mit Kartoffelsalat servieren.<br>
+                    <strong>💡 Tipp:</strong> Kartoffelsalat kann am Vorabend zubereitet werden.
                 `
             }
         };
