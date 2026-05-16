@@ -1,0 +1,189 @@
+{
+  "source": "fooby.ch",
+  "description": "Lokale Kopie der FOOBY vegetarischen Rezepte (Stand: 2026-05-16)",
+  "total_recipes": 5753,
+  "search_results": {
+    "couscous_salat": {
+      "query": "couscous salat",
+      "vegetarian_count": 20,
+      "categories": ["salate", "couscous", "hauptgericht", "sommer", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Couscous-Salat mit Kichererbsen und Feta",
+          "time": 20,
+          "difficulty": "einfach",
+          "ingredients": ["Couscous", "Kichererbsen", "Feta", "Gurke", "Tomaten", "Zwiebel", "Zitrone", "Olivenöl"],
+          "instructions": "Couscous mit heissem Wasser übergießen, 10 Min quellen lassen. Gemüse würfeln, Feta bröseln. Mit Olivenöl und Zitrone abschmecken.",
+          "mealprep": true,
+          "lunch": true,
+          "season": "ganzjährig"
+        }
+      ]
+    },
+    "linsen_dal": {
+      "query": "linsen dal",
+      "vegetarian_count": 8,
+      "categories": ["hauptgericht", "linsen", "indisch", "curry", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Linsen-Dal mit Reis",
+          "time": 25,
+          "difficulty": "einfach",
+          "ingredients": ["Rote Linsen", "Kokosmilch", "Zwiebel", "Knoblauch", "Kurkuma", "Kreuzkümmel", "Basmatireis"],
+          "instructions": "Zwiebel und Knoblauch anschwitzen, Linsen und Gewürze zugeben. Mit Kokosmilch köcheln. Reis separat kochen.",
+          "mealprep": true,
+          "lunch": true,
+          "season": "ganzjährig"
+        }
+      ]
+    },
+    "quinoa_bowl": {
+      "query": "quinoa bowl",
+      "vegetarian_count": 18,
+      "categories": ["bowls", "quinoa", "hauptgericht", "herbst", "sommer", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Quinoa-Bowl mit Halloumi",
+          "time": 25,
+          "difficulty": "einfach",
+          "ingredients": ["Quinoa", "Halloumi", "Radieschen", "Avocado", "Zitrone", "Olivenöl"],
+          "instructions": "Quinoa kochen, Halloumi braten, Gemüse schneiden. Mit Zitronen-Dressing anrichten.",
+          "mealprep": false,
+          "lunch": true,
+          "season": "frühling"
+        }
+      ]
+    },
+    "one_pot_pasta": {
+      "query": "one pot pasta spinat",
+      "vegetarian_count": 3,
+      "categories": ["one pot", "pasta", "hauptgericht", "schnelle küche", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "One-Pot-Pasta mit Spinat und Ricotta",
+          "time": 20,
+          "difficulty": "einfach",
+          "ingredients": ["Pasta", "Spinat", "Ricotta", "Parmesan", "Gemüsebrühe", "Zwiebel", "Knoblauch"],
+          "instructions": "Pasta mit Gemüsebrühe und Spinat in einem Topf kochen. Ricotta und Parmesan unterheben.",
+          "mealprep": false,
+          "lunch": false,
+          "season": "frühling"
+        }
+      ]
+    },
+    "gnocchi_spargel": {
+      "query": "gnocchi spargel",
+      "vegetarian_count": 1,
+      "categories": ["hauptgericht", "spargel", "frühling", "schnell", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Gnocchi mit Spargel-Rahmsauce",
+          "time": 15,
+          "difficulty": "einfach",
+          "ingredients": ["Gnocchi", "Spargel", "Rahm", "Parmesan", "Zitrone", "Butter"],
+          "instructions": "Spargel blanchieren, Gnocchi braten, Rahm zugeben. Mit Parmesan und Zitrone servieren.",
+          "mealprep": false,
+          "lunch": false,
+          "season": "frühling"
+        }
+      ]
+    },
+    "shakshuka": {
+      "query": "shakshuka",
+      "vegetarian_count": 14,
+      "categories": ["hauptgericht", "brunch", "eier", "tomate", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Shakshuka",
+          "time": 25,
+          "difficulty": "einfach",
+          "ingredients": ["Eier", "Tomaten", "Paprika", "Zwiebel", "Knoblauch", "Kreuzkümmel", "Brot"],
+          "instructions": "Gemüse dünsten, Tomaten zugeben. Eier in die Sauce gleiten lassen, pochieren. Mit Brot servieren.",
+          "mealprep": false,
+          "lunch": false,
+          "season": "ganzjährig"
+        }
+      ]
+    },
+    "spargel_risotto": {
+      "query": "spargel risotto",
+      "vegetarian_count": 6,
+      "categories": ["hauptgericht", "risotto", "spargel", "frühling", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Risotto mit grünem Spargel",
+          "time": 35,
+          "difficulty": "mittel",
+          "ingredients": ["Risottoreis", "Spargel", "Parmesan", "Weisswein", "Gemüsebrühe", "Zwiebel", "Butter"],
+          "instructions": "Zwiebel anschwitzen, Reis zugeben, mit Wein ablöschen. Nach und nach Brühe zugeben, rühren. Spargel und Parmesan unterheben.",
+          "mealprep": false,
+          "lunch": false,
+          "season": "frühling"
+        }
+      ]
+    },
+    "flammkuchen": {
+      "query": "flammkuchen ziegenkäse",
+      "vegetarian_count": 1,
+      "categories": ["vorspeise", "hauptgericht", "herbst", "winter", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Randen-Ziegenkäse-Flammkuchen",
+          "time": 35,
+          "difficulty": "mittel",
+          "ingredients": ["Flammkuchenteig", "Randen", "Ziegenkäse", "Zwiebel", "Crème fraîche", "Honig"],
+          "instructions": "Randen hobeln, Zwiebeln karamellisieren. Teig belegen, Ziegenkäse darauf. Im Ofen backen.",
+          "mealprep": false,
+          "lunch": false,
+          "season": "herbst"
+        }
+      ]
+    },
+    "baerlauch_pesto": {
+      "query": "pasta bärlauch pesto",
+      "vegetarian_count": 3,
+      "categories": ["pasta", "frühling", "bärlauch", "pesto", "vegetarisch"],
+      "sample_recipes": [
+        {
+          "name": "Pasta mit Bärlauch-Pesto",
+          "time": 25,
+          "difficulty": "einfach",
+          "ingredients": ["Pasta", "Bärlauch", "Pinienkerne", "Parmesan", "Olivenöl", "Cherrytomaten"],
+          "instructions": "Bärlauch mit Pinienkernen, Parmesan und Olivenöl pürieren. Pasta kochen, Pesto unterheben. Tomaten dazugeben.",
+          "mealprep": false,
+          "lunch": false,
+          "season": "frühling"
+        }
+      ]
+    },
+    "gemuese_curry": {
+      "query": "gemüse curry kokosmilch",
+      "vegetarian_count": 28,
+      "categories": ["hauptgericht", "curry", "kokosmilch", "vegetarisch", "vegan"],
+      "sample_recipes": [
+        {
+          "name": "Gemüse-Curry mit Kichererbsen",
+          "time": 30,
+          "difficulty": "einfach",
+          "ingredients": ["Zucchini", "Paprika", "Spinat", "Kichererbsen", "Kokosmilch", "Currypaste", "Reis"],
+          "instructions": "Gemüse anbraten, Currypaste und Kokosmilch zugeben. Kichererbsen hinzufügen, köcheln. Mit Reis servieren.",
+          "mealprep": true,
+          "lunch": true,
+          "season": "ganzjährig"
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "extraction_date": "2026-05-16",
+    "api_endpoint": "https://fooby.ch/hawaii_search.sri",
+    "total_vegetarian": 5753,
+    "total_hauptgerichte": 1229,
+    "seasons": {
+      "frühling": 667,
+      "sommer": 996,
+      "herbst": 843,
+      "winter": 597
+    }
+  }
+}
