@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+<script>
+// Test der Zutaten-Logik
+const recipeIngredients = {
+    1: { 'Gemüse und Früchte': ['Gurke 1 Stk', 'Tomaten 4 Stk'], 'Konserven': ['Kichererbsen (Dose) 1x'] },
+    2: { 'Hülsenfrüchte/Getreide': ['Rote Linsen 300g', 'Basmatireis 300g'], 'Konserven': ['Kokosmilch 1 Dose'] },
+    15: { 'Gemüse und Früchte': ['Zucchini 2 Stk'], 'Konserven': ['Kichererbsen (Dose) 1x', 'Kokosmilch 1 Dose'], 'Hülsenfrücke/Getreide': ['Basmatireis 200g'] },
+    16: { 'Fisch': ['Lachsfilet 300g (2 Stk)'] }
+};
+
+let ingredients = {};
+const selectedRecipes = [1, 2, 15, 16];
+
+selectedRecipes.forEach(id => {
+    if (recipeIngredients[id]) {
+        for (const [category, items] of Object.entries(recipeIngredients[id])) {
+            if (!ingredients[category]) ingredients[category] = [];
+            ingredients[category].push(...items);
+        }
+    }
+});
+
+// Zutaten zusammenfassen und Mengen addieren
+const consolidatedIngredients = {};
+
+for (const [category, items] of Object.entries(ingredients)) {
+    const itemMap = {};
+    
+    items.forEach(item => {
+        let normalized = item.trim();
+        const match = normalized.match(/^(.+?)\s+(\d+(?:\.\d+)?)\s*(g|kg|ml|l|Stk|Bund|EL|TL|Dose|x|Stück|Portionen)?$/i);
+        
+        if (match) {
+            const baseName = match[1].trim();
+            const amount = parseFloat(match[2]);
+            const unit = match[3] || 'x';
+            const key = `${baseName}___${unit}`;
+            
+            if (!itemMap[key]) {
+                itemMap[key] = { name: baseName, amount: 0, unit: unit };
+            }
+            itemMap[key].amount += amount;
+        } else {
+            if (!itemMap[normalized]) {
+                itemMap[normalized] = { name: normalized, amount: 0, unit: 'x' };
+            }
+            itemMap[normalized].amount += 1;
+        }
+    });
+    
+    consolidatedIngredients[category] = Object.values(itemMap).map(data => {
+        const amountStr = Number.isInteger(data.amount) ? data.amount.toString() : data.amount.toFixed(1).replace('.', ',');
+        if (data.unit === 'x' && data.amount === 1) {
+            return data.name;
+        }
+        return `${data.name} ${amountStr} ${data.unit}`;
+    }).sort();
+}
+
+// Ausgabe
+let html = '<h1>Test Einkaufsliste</h1>';
+for (const [category, items] of Object.entries(consolidatedIngredients)) {
+    html += `<h2>${category}</h2><ul>`;
+    items.forEach(item => {
+        html += `<li>${item}</li>`;
+    });
+    html += '</ul>';
+}
+
+document.body.innerHTML = html;
+</script>
+</body>
+</html>

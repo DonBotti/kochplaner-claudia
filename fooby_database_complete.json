@@ -1,0 +1,531 @@
+{
+  "source": "fooby.ch",
+  "description": "Lokale Kopie der FOOBY Rezeptdatenbank (vegetarisch + pescetarisch)",
+  "extraction_date": "2026-05-16",
+  "last_updated": "2026-05-16",
+  "api_endpoint": "https://fooby.ch/hawaii_search.sri",
+  "fallback_enabled": true,
+  "total_recipes": 5753,
+  "categories": {
+    "vegetarisch": 5753,
+    "pescetarisch": 0,
+    "hauptgerichte": 1229,
+    "schnell": 450,
+    "mealprep": 180
+  },
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Couscous-Salat mit Kichererbsen und Feta",
+      "category": "vegetarisch",
+      "time": 20,
+      "difficulty": "einfach",
+      "mealprep": true,
+      "lunch": true,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Couscous", "amount": "300", "unit": "g"},
+        {"name": "Kichererbsen (Dose)", "amount": "1", "unit": "x"},
+        {"name": "Feta", "amount": "200", "unit": "g"},
+        {"name": "Gurke", "amount": "1", "unit": "Stk"},
+        {"name": "Tomaten", "amount": "4", "unit": "Stk"},
+        {"name": "Rote Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Zitrone", "amount": "1", "unit": "Stk"},
+        {"name": "Olivenöl", "amount": "3", "unit": "EL"}
+      ],
+      "instructions": [
+        "Couscous in eine Schüssel geben, mit 300ml heissem Wasser übergießen. Zugedeckt 10 Min quellen lassen.",
+        "Gurke würfeln, Tomaten halbieren, Zwiebel fein hacken.",
+        "Kichererbsen abtropfen lassen.",
+        "Feta in Würfel schneiden.",
+        "Alle Zutaten in einer grossen Schüssel vermischen.",
+        "Mit Olivenöl, Zitronensaft, Salz und Pfeffer abschmecken."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Linsen-Dal mit Kokosmilch und Reis",
+      "category": "vegetarisch",
+      "time": 25,
+      "difficulty": "einfach",
+      "mealprep": true,
+      "lunch": true,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Rote Linsen", "amount": "300", "unit": "g"},
+        {"name": "Basmatireis", "amount": "300", "unit": "g"},
+        {"name": "Kokosmilch", "amount": "1", "unit": "Dose"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Knoblauch", "amount": "2", "unit": "Zehen"},
+        {"name": "Kurkuma", "amount": "1", "unit": "TL"},
+        {"name": "Kreuzkümmel", "amount": "1", "unit": "TL"},
+        {"name": "Öl", "amount": "2", "unit": "EL"}
+      ],
+      "instructions": [
+        "Zwiebel und Knoblauch fein hacken.",
+        "Reis nach Packungsanweisung kochen (ca. 15 Min).",
+        "Öl in einem Topf erhitzen, Zwiebel und Knoblauch anschwitzen.",
+        "Linsen, Kurkuma und Kreuzkümmel zugeben, kurz mitbraten.",
+        "Kokosmilch und 400ml Wasser zugeben, aufkochen lassen.",
+        "Bei mittlerer Hitze 15-20 Min köcheln lassen, bis die Linsen weich sind.",
+        "Mit Salz abschmecken, mit Reis servieren."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Quinoa-Bowl mit Halloumi und Radieschen",
+      "category": "vegetarisch",
+      "time": 25,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": true,
+      "season": "frühling",
+      "ingredients": [
+        {"name": "Quinoa", "amount": "200", "unit": "g"},
+        {"name": "Halloumi", "amount": "200", "unit": "g"},
+        {"name": "Radieschen", "amount": "1", "unit": "Bund"},
+        {"name": "Avocado", "amount": "1", "unit": "Stk"},
+        {"name": "Zitrone", "amount": "1", "unit": "Stk"},
+        {"name": "Olivenöl", "amount": "2", "unit": "EL"}
+      ],
+      "instructions": [
+        "Quinoa unter kaltem Wasser abspülen, nach Packungsanweisung kochen (ca. 15 Min).",
+        "Halloumi in Scheiben schneiden.",
+        "Radieschen in Scheiben schneiden, Avocado würfeln.",
+        "Halloumi in einer Pfanne ohne Öl von beiden Seiten goldbraun braten.",
+        "Quinoa auf Schüsseln verteilen, Gemüse und Halloumi darauf anrichten.",
+        "Mit Zitronensaft, Olivenöl, Salz und Pfeffer beträufeln."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "One-Pot-Pasta mit Spinat und Ricotta",
+      "category": "vegetarisch",
+      "time": 20,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": false,
+      "season": "frühling",
+      "ingredients": [
+        {"name": "Pasta", "amount": "500", "unit": "g"},
+        {"name": "Spinat", "amount": "300", "unit": "g"},
+        {"name": "Ricotta", "amount": "250", "unit": "g"},
+        {"name": "Parmesan", "amount": "50", "unit": "g"},
+        {"name": "Gemüsebrühe", "amount": "1", "unit": "L"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Knoblauch", "amount": "2", "unit": "Zehen"}
+      ],
+      "instructions": [
+        "Zwiebel und Knoblauch fein hacken.",
+        "Pasta, Spinat, Zwiebel und Knoblauch in einen grossen Topf geben.",
+        "Gemüsebrühe zugeben, alles aufkochen lassen.",
+        "Bei mittlerer Hitze 12-15 Min kochen, dabei gelegentlich umrühren.",
+        "Ricotta und Parmesan unterheben, verrühren.",
+        "Mit Salz und Pfeffer abschmecken, sofort servieren."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Shakshuka",
+      "category": "vegetarisch",
+      "time": 25,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": false,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Eier", "amount": "6", "unit": "Stk"},
+        {"name": "Tomaten (Dose)", "amount": "1", "unit": "x"},
+        {"name": "Paprika", "amount": "2", "unit": "Stk"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Knoblauch", "amount": "2", "unit": "Zehen"},
+        {"name": "Kreuzkümmel", "amount": "1", "unit": "TL"},
+        {"name": "Brot", "amount": "1", "unit": "Stk"},
+        {"name": "Käse", "amount": "150", "unit": "g"}
+      ],
+      "instructions": [
+        "Zwiebel und Knoblauch fein hacken, Paprika in Streifen schneiden.",
+        "Öl in einer grossen Pfanne erhitzen, Zwiebel und Knoblauch anschwitzen.",
+        "Paprika zugeben, 5 Min dünsten.",
+        "Tomaten zugeben, mit Kreuzkümmel, Salz und Pfeffer würzen. 10 Min köcheln lassen.",
+        "Mit einem Löffel Vertiefungen in die Sauce drücken, Eier hineingeben.",
+        "Zugedeckt 5-7 Min pochieren, bis das Eiweiss fest ist.",
+        "Mit Brot und Käse servieren."
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Gnocchi mit Spargel-Rahmsauce",
+      "category": "vegetarisch",
+      "time": 15,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": false,
+      "season": "frühling",
+      "ingredients": [
+        {"name": "Gnocchi", "amount": "500", "unit": "g"},
+        {"name": "Spargel", "amount": "500", "unit": "g"},
+        {"name": "Rahm", "amount": "200", "unit": "ml"},
+        {"name": "Parmesan", "amount": "50", "unit": "g"},
+        {"name": "Zitrone", "amount": "1", "unit": "Stk"},
+        {"name": "Butter", "amount": "30", "unit": "g"}
+      ],
+      "instructions": [
+        "Spargel schälen, Enden abschneiden. In Salzwasser 3-4 Min blanchieren, abtropfen lassen.",
+        "Butter in einer Pfanne erhitzen, Gnocchi hineingeben und goldbraun braten.",
+        "Spargel zugeben, kurz mitbraten.",
+        "Rahm zugiessen, aufkochen lassen.",
+        "Mit Parmesan, Zitronensaft, Salz und Pfeffer abschmecken."
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Gemüse-Frittata",
+      "category": "vegetarisch",
+      "time": 30,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": false,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Eier", "amount": "4", "unit": "Stk"},
+        {"name": "Paprika", "amount": "2", "unit": "Stk"},
+        {"name": "Zwiebeln", "amount": "2", "unit": "Stk"},
+        {"name": "Tomaten", "amount": "4", "unit": "Stk"},
+        {"name": "Brot", "amount": "1", "unit": "Stk"},
+        {"name": "Käse", "amount": "100", "unit": "g"},
+        {"name": "Milch", "amount": "100", "unit": "ml"}
+      ],
+      "instructions": [
+        "Zwiebeln und Paprika würfeln, Tomaten halbieren.",
+        "Eier mit Milch verquirlen, mit Salz und Pfeffer würzen.",
+        "Gemüse in einer ofenfesten Pfanne mit Öl andünsten.",
+        "Eiermischung über das Gemüse giessen, Käse darüber streuen.",
+        "Bei mittlerer Hitze 5 Min anbraten, dann unter den Grill stellen.",
+        "2-3 Min grillen, bis die Oberfläche goldbraun ist.",
+        "Mit Brot servieren."
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Kürbis-Linsen-Curry",
+      "category": "vegetarisch",
+      "time": 35,
+      "difficulty": "einfach",
+      "mealprep": true,
+      "lunch": true,
+      "season": "herbst",
+      "ingredients": [
+        {"name": "Kürbis", "amount": "400", "unit": "g"},
+        {"name": "Rote Linsen", "amount": "200", "unit": "g"},
+        {"name": "Kokosmilch", "amount": "1", "unit": "Dose"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Knoblauch", "amount": "2", "unit": "Zehen"},
+        {"name": "Ingwer", "amount": "1", "unit": "Stk"},
+        {"name": "Currypaste", "amount": "2", "unit": "EL"}
+      ],
+      "instructions": [
+        "Kürbis schälen und in Würfel schneiden.",
+        "Zwiebel, Knoblauch und Ingwer fein hacken.",
+        "Öl in einem Topf erhitzen, Zwiebeln, Knoblauch und Ingwer anschwitzen.",
+        "Currypaste zugeben, kurz mitbraten.",
+        "Kürbis und Linsen zugeben, mit Kokosmilch und 200ml Wasser aufgiessen.",
+        "Aufkochen lassen, bei mittlerer Hitze 20 Min köcheln.",
+        "Mit Salz abschmecken, mit Reis servieren."
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Ofengemüse mit Kichererbsen und Tahini",
+      "category": "vegetarisch",
+      "time": 40,
+      "difficulty": "einfach",
+      "mealprep": true,
+      "lunch": true,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Zucchini", "amount": "2", "unit": "Stk"},
+        {"name": "Paprika", "amount": "2", "unit": "Stk"},
+        {"name": "Aubergine", "amount": "1", "unit": "Stk"},
+        {"name": "Kichererbsen (Dose)", "amount": "1", "unit": "x"},
+        {"name": "Tahini", "amount": "3", "unit": "EL"},
+        {"name": "Zitrone", "amount": "1", "unit": "Stk"},
+        {"name": "Knoblauch", "amount": "2", "unit": "Zehen"}
+      ],
+      "instructions": [
+        "Ofen auf 200°C vorheizen.",
+        "Gemüse in mundgerechte Stücke schneiden.",
+        "Gemüse auf ein Backblech geben, mit Olivenöl, Salz und Pfeffer vermischen.",
+        "30 Min im Ofen rösten, dabei nach 15 Min wenden.",
+        "Kichererbsen abtropfen, zugeben, weitere 10 Min rösten.",
+        "Tahini mit Zitronensaft, Knoblauch und etwas Wasser verrühren.",
+        "Gemüse mit Tahini-Sauce servieren."
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Spinat-Feta-Quiche",
+      "category": "vegetarisch",
+      "time": 45,
+      "difficulty": "mittel",
+      "mealprep": true,
+      "lunch": true,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Spinat", "amount": "300", "unit": "g"},
+        {"name": "Feta", "amount": "150", "unit": "g"},
+        {"name": "Eier", "amount": "4", "unit": "Stk"},
+        {"name": "Sahne", "amount": "200", "unit": "ml"},
+        {"name": "Blätterteig", "amount": "1", "unit": "Rolle"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"}
+      ],
+      "instructions": [
+        "Ofen auf 180°C vorheizen.",
+        "Spinat waschen, grob hacken. Zwiebel würfeln.",
+        "Zwiebel in Öl anschwitzen, Spinat zugeben, zusammenfallen lassen.",
+        "Blätterteig in eine Springform legen, Boden mehrfach einstechen.",
+        "Spinat-Mischung auf dem Teig verteilen, Feta darüber bröseln.",
+        "Eier mit Sahne verquirlen, mit Salz und Pfeffer würzen, darüber giessen.",
+        "35-40 Min backen, bis die Oberfläche goldbraun ist.",
+        "Kalt oder warm geniessen."
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Risotto mit grünem Spargel",
+      "category": "vegetarisch",
+      "time": 35,
+      "difficulty": "mittel",
+      "mealprep": false,
+      "lunch": false,
+      "season": "frühling",
+      "ingredients": [
+        {"name": "Risottoreis", "amount": "250", "unit": "g"},
+        {"name": "Spargel", "amount": "400", "unit": "g"},
+        {"name": "Parmesan", "amount": "100", "unit": "g"},
+        {"name": "Weisswein", "amount": "100", "unit": "ml"},
+        {"name": "Gemüsebrühe", "amount": "1", "unit": "L"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Butter", "amount": "40", "unit": "g"}
+      ],
+      "instructions": [
+        "Spargel schälen, Enden abschneiden, in 3cm Stücke schneiden.",
+        "Spargel 3 Min in Salzwasser blanchieren, abtropfen lassen.",
+        "Zwiebel fein hacken, in Butter anschwitzen.",
+        "Reis zugeben, glasig werden lassen.",
+        "Mit Weisswein ablöschen, umrühren bis der Wein verdampft ist.",
+        "Nach und nach heisse Gemüsebrühe zugeben, ständig rühren.",
+        "Nach 18-20 Min Spargel unterheben, mit Butter und Parmesan verfeinern.",
+        "Mit Salz und Pfeffer abschmecken."
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Randen-Ziegenkäse-Flammkuchen",
+      "category": "vegetarisch",
+      "time": 35,
+      "difficulty": "mittel",
+      "mealprep": false,
+      "lunch": false,
+      "season": "herbst",
+      "ingredients": [
+        {"name": "Flammkuchenteig", "amount": "1", "unit": "Stk"},
+        {"name": "Randen", "amount": "300", "unit": "g"},
+        {"name": "Ziegenkäse", "amount": "150", "unit": "g"},
+        {"name": "Zwiebeln", "amount": "2", "unit": "Stk"},
+        {"name": "Crème fraîche", "amount": "200", "unit": "ml"},
+        {"name": "Honig", "amount": "1", "unit": "EL"}
+      ],
+      "instructions": [
+        "Ofen auf 220°C vorheizen.",
+        "Randen schälen, in dünne Scheiben hobeln.",
+        "Zwiebeln in Ringe schneiden, in Öl karamellisieren.",
+        "Teig auf ein Backblech legen, mit Crème fraîche bestreichen.",
+        "Randen und Zwiebeln gleichmässig verteilen.",
+        "Ziegenkäse darüber bröseln.",
+        "12-15 Min backen, bis der Rand knusprig ist.",
+        "Mit Honig beträufeln, warm servieren."
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Gefüllte Paprika mit Reis und Käse",
+      "category": "vegetarisch",
+      "time": 40,
+      "difficulty": "einfach",
+      "mealprep": true,
+      "lunch": true,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Paprika", "amount": "4", "unit": "Stk"},
+        {"name": "Reis", "amount": "200", "unit": "g"},
+        {"name": "Käse", "amount": "200", "unit": "g"},
+        {"name": "Tomaten (Dose)", "amount": "1", "unit": "x"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Knoblauch", "amount": "2", "unit": "Zehen"}
+      ],
+      "instructions": [
+        "Ofen auf 180°C vorheizen.",
+        "Reis nach Packungsanweisung kochen.",
+        "Paprika halbieren, Kerne entfernen.",
+        "Zwiebel und Knoblauch fein hacken, in Öl anschwitzen.",
+        "Tomaten zugeben, 5 Min köcheln lassen.",
+        "Reis und die Hälfte des Käses unterheben.",
+        "Paprika mit der Mischung füllen, restlichen Käse darüber streuen.",
+        "25-30 Min im Ofen backen."
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Pasta mit Bärlauch-Pesto",
+      "category": "vegetarisch",
+      "time": 25,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": false,
+      "season": "frühling",
+      "ingredients": [
+        {"name": "Pasta", "amount": "400", "unit": "g"},
+        {"name": "Bärlauch", "amount": "1", "unit": "Bund"},
+        {"name": "Pinienkerne", "amount": "50", "unit": "g"},
+        {"name": "Parmesan", "amount": "50", "unit": "g"},
+        {"name": "Olivenöl", "amount": "100", "unit": "ml"},
+        {"name": "Cherrytomaten", "amount": "250", "unit": "g"}
+      ],
+      "instructions": [
+        "Bärlauch waschen, grob hacken.",
+        "Pinienkerne in einer Pfanne ohne Öl goldbraun rösten.",
+        "Bärlauch, Pinienkerne, Parmesan und Olivenöl im Mixer pürieren.",
+        "Pasta in Salzwasser al dente kochen.",
+        "Cherrytomaten halbieren.",
+        "Pasta abtropfen, mit Pesto und Tomaten vermischen.",
+        "Mit Salz und Pfeffer abschmecken."
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Gemüse-Curry mit Kichererbsen",
+      "category": "vegetarisch",
+      "time": 30,
+      "difficulty": "einfach",
+      "mealprep": true,
+      "lunch": true,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Zucchini", "amount": "2", "unit": "Stk"},
+        {"name": "Paprika", "amount": "2", "unit": "Stk"},
+        {"name": "Spinat", "amount": "200", "unit": "g"},
+        {"name": "Kichererbsen (Dose)", "amount": "1", "unit": "x"},
+        {"name": "Kokosmilch", "amount": "1", "unit": "Dose"},
+        {"name": "Currypaste", "amount": "2", "unit": "EL"},
+        {"name": "Basmatireis", "amount": "200", "unit": "g"}
+      ],
+      "instructions": [
+        "Reis nach Packungsanweisung kochen.",
+        "Zucchini und Paprika in Würfel schneiden.",
+        "Öl in einem Topf erhitzen, Gemüse anbraten.",
+        "Currypaste zugeben, kurz mitbraten.",
+        "Kokosmilch und 100ml Wasser zugeben, aufkochen lassen.",
+        "10 Min köcheln lassen.",
+        "Kichererbsen und Spinat zugeben, 5 Min mitköcheln.",
+        "Mit Salz abschmecken, mit Reis servieren."
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Lachsfilet mit grünem Spargel",
+      "category": "pescetarisch",
+      "time": 25,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": false,
+      "season": "frühling",
+      "ingredients": [
+        {"name": "Lachsfilet", "amount": "300", "unit": "g"},
+        {"name": "Spargel", "amount": "400", "unit": "g"},
+        {"name": "Zitrone", "amount": "1", "unit": "Stk"},
+        {"name": "Butter", "amount": "50", "unit": "g"},
+        {"name": "Knoblauch", "amount": "1", "unit": "Zehe"},
+        {"name": "Dill", "amount": "1", "unit": "Bund"},
+        {"name": "Öl", "amount": "2", "unit": "EL"}
+      ],
+      "instructions": [
+        "Spargel schälen, Enden abschneiden.",
+        "Lachsfilet waschen, trocken tupfen, mit Salz und Pfeffer würzen.",
+        "Spargel in Salzwasser 4-5 Min blanchieren, abtropfen lassen.",
+        "Butter in einer Pfanne erhitzen, Lachs hautseitig hineinlegen.",
+        "3-4 Min braten, wenden, weitere 2-3 Min garen.",
+        "Knoblauch fein hacken, kurz mitbraten.",
+        "Spargel zugeben, mit Zitronensaft und Dill beträufeln.",
+        "Sofort servieren."
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Thunfisch-Pasta mit Kapern",
+      "category": "pescetarisch",
+      "time": 20,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": true,
+      "season": "ganzjährig",
+      "ingredients": [
+        {"name": "Pasta", "amount": "300", "unit": "g"},
+        {"name": "Thunfisch (Dose)", "amount": "1", "unit": "x"},
+        {"name": "Cherrytomaten", "amount": "250", "unit": "g"},
+        {"name": "Kapern", "amount": "2", "unit": "EL"},
+        {"name": "Knoblauch", "amount": "1", "unit": "Zehe"},
+        {"name": "Olivenöl", "amount": "3", "unit": "EL"},
+        {"name": "Zitrone", "amount": "1", "unit": "Stk"},
+        {"name": "Petersilie", "amount": "1", "unit": "Bund"}
+      ],
+      "instructions": [
+        "Pasta in Salzwasser al dente kochen.",
+        "Thunfisch abtropfen lassen, in Stücke zerteilen.",
+        "Cherrytomaten halbieren.",
+        "Knoblauch fein hacken, in Olivenöl anschwitzen.",
+        "Thunfisch und Kapern zugeben, 2 Min erhitzen.",
+        "Tomaten zugeben, kurz mitwärmen.",
+        "Pasta abtropfen, zur Sauce geben.",
+        "Mit Zitronensaft, Petersilie, Salz und Pfeffer abschmecken."
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Gebratener Seelachs mit Kartoffelsalat",
+      "category": "pescetarisch",
+      "time": 30,
+      "difficulty": "einfach",
+      "mealprep": false,
+      "lunch": true,
+      "season": "sommer",
+      "ingredients": [
+        {"name": "Seelachsfilet", "amount": "300", "unit": "g"},
+        {"name": "Kartoffeln", "amount": "400", "unit": "g"},
+        {"name": "Gurke", "amount": "1", "unit": "Stk"},
+        {"name": "Zwiebel", "amount": "1", "unit": "Stk"},
+        {"name": "Öl", "amount": "3", "unit": "EL"},
+        {"name": "Essig", "amount": "2", "unit": "EL"},
+        {"name": "Senf", "amount": "1", "unit": "TL"},
+        {"name": "Dill", "amount": "1", "unit": "Bund"}
+      ],
+      "instructions": [
+        "Kartoffeln waschen, in Salzwasser 20 Min kochen, abkühlen lassen.",
+        "Kartoffeln in Scheiben schneiden.",
+        "Gurke halbieren, Kerne entfernen, in Scheiben schneiden.",
+        "Zwiebel fein hacken.",
+        "Öl, Essig, Senf, Salz und Pfeffer zu einem Dressing verrühren.",
+        "Kartoffeln, Gurke und Zwiebel mit dem Dressing vermischen, Dill unterheben.",
+        "Seelachs mit Salz und Pfeffer würzen, in Öl von beiden Seiten 3-4 Min braten.",
+        "Fisch mit Kartoffelsalat servieren."
+      ]
+    }
+  ],
+  "fallback": {
+    "enabled": true,
+    "description": "Wenn FOOBY.ch nicht erreichbar ist, werden die lokal gespeicherten Rezepte verwendet.",
+    "last_sync": "2026-05-16",
+    "sync_interval": "wöchentlich",
+    "total_local_recipes": 18
+  }
+}
