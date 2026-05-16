@@ -625,10 +625,21 @@
                 <div id="shoppingListContent"></div>
                 
                 <div class="share-section">
-                    <h3>📤 Speichern oder teilen</h3>
-                    <p>Du kannst diesen Plan ausdrucken oder als PDF speichern:</p>
-                    <button class="btn" onclick="window.print()" style="margin: 10px auto;">
-                        🖨️ Plan ausdrucken / PDF speichern
+                    <h3>📤 Als PDF speichern</h3>
+                    <p>Wähle aus, was in die PDF aufgenommen werden soll:</p>
+                    <div style="text-align: left; margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
+                        <label style="display: block; margin: 8px 0; cursor: pointer;">
+                            <input type="checkbox" id="pdfWeekPlan" checked> 📅 Wochenplan
+                        </label>
+                        <label style="display: block; margin: 8px 0; cursor: pointer;">
+                            <input type="checkbox" id="pdfRecipes" checked> 👨‍🍳 Rezepte mit Zubereitung
+                        </label>
+                        <label style="display: block; margin: 8px 0; cursor: pointer;">
+                            <input type="checkbox" id="pdfShopping" checked> 🛒 Einkaufsliste
+                        </label>
+                    </div>
+                    <button class="btn" onclick="generatePDF()" style="margin: 10px auto;">
+                        📄 PDF erstellen
                     </button>
                 </div>
                 
@@ -946,13 +957,21 @@
             });
             
             // Tabelle generieren
+            let weekPlanTable = '<table class="week-plan">';
+            weekPlanTable += '<tr><th>Tag</th><th>Mittag (Lunch)</th><th>Abend</th><th>Vorbereitung / Reste</th></tr>';
+            
             plan.forEach(({day, lunch, dinner, prep}) => {
                 const lunchText = lunch ? (lunch.isLeftover ? `Reste: ${lunch.name}` : lunch.name) : 'Flexibel / Reste';
                 const dinnerText = dinner ? dinner.name : 'Flexibel';
-                html += `<tr><td><strong>${day}</strong></td><td>${lunchText}</td><td>${dinnerText}</td><td>${prep || '-'}</td></tr>`;
+                weekPlanTable += `<tr><td><strong>${day}</strong></td><td>${lunchText}</td><td>${dinnerText}</td><td>${prep || '-'}</td></tr>`;
             });
             
-            html += '</table>';
+            weekPlanTable += '</table>';
+            
+            // Speichere für PDF
+            pdfContent.weekPlan = weekPlanTable;
+            
+            html += weekPlanTable;
             
             // Zusammenfassung
             html += '<div class="info-box" style="margin-top: 20px;">';
@@ -1024,20 +1043,25 @@
             }
             
             // ZUBEREITUNGSHINWEISE für ausgewählte Gerichte
-            html += '<div class="info-box" style="background: #e8f5e9; border-left-color: #4caf50;">';
-            html += '<h3>👨‍🍳 Ausführliche Zubereitungshinweise</h3>';
-            html += '<p style="margin-bottom: 10px;">Hier findet ihr Schritt-für-Schritt Anleitungen mit Mengenangaben für die ausgewählten Gerichte:</p>';
+            let recipesContent = '<div class="info-box" style="background: #e8f5e9; border-left-color: #4caf50;">';
+            recipesContent += '<h3>👨‍🍳 Ausführliche Zubereitungshinweise</h3>';
+            recipesContent += '<p style="margin-bottom: 10px;">Hier findet ihr Schritt-für-Schritt Anleitungen mit Mengenangaben für die ausgewählten Gerichte:</p>';
             
             selectedData.forEach(r => {
-                html += '<div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">';
-                html += `<h4 style="color: #667eea; margin-bottom: 8px; font-size: 1.1em;">${r.name}</h4>`;
-                html += `<p style="font-size: 0.9em; color: #555; margin-bottom: 10px; font-style: italic;">🛒 Zutaten: ${r.ingredients}</p>`;
-                html += `<div style="font-size: 0.95em; line-height: 1.6;">${r.instructions}</div>`;
-                html += `<p style="font-size: 0.85em; color: #666; margin-top: 10px; padding-top: 8px; border-top: 1px dotted #ddd;">⏱️ ${r.time} Min | 🥩 Protein: ${r.protein} | 🌍 Regionalität: ${r.region}</p>`;
-                html += '</div>';
+                recipesContent += '<div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">';
+                recipesContent += `<h4 style="color: #667eea; margin-bottom: 8px; font-size: 1.1em;">${r.name}</h4>`;
+                recipesContent += `<p style="font-size: 0.9em; color: #555; margin-bottom: 10px; font-style: italic;">🛒 Zutaten: ${r.ingredients}</p>`;
+                recipesContent += `<div style="font-size: 0.95em; line-height: 1.6;">${r.instructions}</div>`;
+                recipesContent += `<p style="font-size: 0.85em; color: #666; margin-top: 10px; padding-top: 8px; border-top: 1px dotted #ddd;">⏱️ ${r.time} Min | 🥩 Protein: ${r.protein} | 🌍 Regionalität: ${r.region}</p>`;
+                recipesContent += '</div>';
             });
             
-            html += '</div>';
+            recipesContent += '</div>';
+            
+            // Speichere für PDF
+            pdfContent.recipes = recipesContent;
+            
+            html += recipesContent;
             
             // Hinweise basierend auf Auswahl
             html += '<div class="info-box">';
@@ -1061,6 +1085,60 @@
             html += '</div>';
             
             document.getElementById('cookingListContent').innerHTML = html;
+        }
+        
+        // Globale Variable für PDF-Inhalt
+        let pdfContent = {
+            weekPlan: '',
+            recipes: '',
+            shopping: ''
+        };
+        
+        function generatePDF() {
+            const includeWeekPlan = document.getElementById('pdfWeekPlan').checked;
+            const includeRecipes = document.getElementById('pdfRecipes').checked;
+            const includeShopping = document.getElementById('pdfShopping').checked;
+            
+            let printContent = '<html><head><title>Kochplan</title>';
+            printContent += '<style>';
+            printContent += 'body { font-family: Arial, sans-serif; padding: 20px; }';
+            printContent += 'h1 { color: #667eea; }';
+            printContent += 'h2 { color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 5px; }';
+            printContent += 'table { width: 100%; border-collapse: collapse; margin: 15px 0; }';
+            printContent += 'th { background: #667eea; color: white; padding: 10px; text-align: left; }';
+            printContent += 'td { padding: 10px; border-bottom: 1px solid #ddd; }';
+            printContent += '.recipe-box { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; }';
+            printContent += '.recipe-title { color: #667eea; font-size: 1.2em; font-weight: bold; }';
+            printContent += '.ingredients { font-style: italic; color: #555; margin: 5px 0; }';
+            printContent += '.instructions { line-height: 1.6; }';
+            printContent += '.shopping-item { padding: 5px 0; border-bottom: 1px dotted #ddd; }';
+            printContent += '.category { color: #667eea; font-weight: bold; margin-top: 15px; }';
+            printContent += '</style></head><body>';
+            
+            printContent += '<h1>🍽️ Kochplan</h1>';
+            printContent += '<p>Erstellt am ' + new Date().toLocaleDateString('de-CH') + '</p>';
+            
+            if (includeWeekPlan && pdfContent.weekPlan) {
+                printContent += '<h2>📅 Wochenplan</h2>';
+                printContent += pdfContent.weekPlan;
+            }
+            
+            if (includeRecipes && pdfContent.recipes) {
+                printContent += '<h2>👨‍🍳 Rezepte</h2>';
+                printContent += pdfContent.recipes;
+            }
+            
+            if (includeShopping && pdfContent.shopping) {
+                printContent += '<h2>🛒 Einkaufsliste</h2>';
+                printContent += pdfContent.shopping;
+            }
+            
+            printContent += '</body></html>';
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.print();
         }
         
         function goToPhase4() {
@@ -1112,17 +1190,25 @@
             }
             
             let html = '<div class="shopping-list">';
+            let shoppingForPDF = '<div class="shopping-list">';
             
             for (const [category, items] of Object.entries(ingredients)) {
                 html += '<div class="shopping-category">';
                 html += `<h3>${category}</h3>`;
+                shoppingForPDF += `<div class="category">${category}</div>`;
                 items.forEach(item => {
                     html += `<div class="shopping-item">☐ ${item}</div>`;
+                    shoppingForPDF += `<div class="shopping-item">☐ ${item}</div>`;
                 });
                 html += '</div>';
             }
             
             html += '</div>';
+            shoppingForPDF += '</div>';
+            
+            // Speichere für PDF
+            pdfContent.shopping = shoppingForPDF;
+            
             document.getElementById('shoppingListContent').innerHTML = html;
         }
     </script>
