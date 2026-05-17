@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kochplaner - Vegetarische Wochenplanung</title>
+    <title>Kochplaner – Claudia & Andreas</title>
+    <meta name="description" content="Wochenplan, Rezepte und Einkaufsliste für vegetarische und pescetarische Gerichte">
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Kochplaner">
+    <link rel="apple-touch-icon" href="icon-192.svg">
+    <link rel="manifest" href="manifest.json">
+    <script>
+        // Service Worker registrieren
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[App] Service Worker registriert:', reg.scope))
+                    .catch(err => console.warn('[App] SW Fehler:', err));
+            });
+        }
+    </script>
     <style>
         * {
             margin: 0;
