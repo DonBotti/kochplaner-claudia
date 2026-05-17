@@ -82,10 +82,42 @@
         .recipe-card {
             border: 2px solid #e0e0e0;
             border-radius: 12px;
-            padding: 20px;
+            padding: 0;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .recipe-card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px 10px 0 0;
+            background: #e8f0fe;
+        }
+        
+        .recipe-card-img.loading {
+            background: linear-gradient(90deg, #e8f0fe 25%, #d0dcff 50%, #e8f0fe 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .recipe-card-body {
+            padding: 15px;
+        }
+        
+        .recipe-card-emoji {
+            font-size: 2.5em;
+            text-align: center;
+            padding: 20px 0 10px 0;
+            display: none;
         }
         
         .recipe-card:hover {
@@ -119,17 +151,18 @@
             display: inline-block;
             background: #667eea;
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             text-align: center;
-            line-height: 30px;
+            line-height: 28px;
             font-weight: bold;
-            margin-right: 10px;
+            margin-right: 8px;
+            font-size: 0.9em;
         }
         
         .recipe-title {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
             color: #333;
             margin-bottom: 5px;
@@ -725,6 +758,82 @@
     <script>
         let selectedRecipes = [];
         
+        // Bilder in Rezeptkarten injizieren (wird beim Laden ausgeführt)
+        function injectRecipeImages() {
+            document.querySelectorAll('.recipe-card').forEach(card => {
+                const id = parseInt(card.getAttribute('data-id'));
+                if (!recipeImages[id]) return;
+                
+                // Bestehenden Inhalt in card-body wrappen
+                const body = document.createElement('div');
+                body.className = 'recipe-card-body';
+                while (card.firstChild) body.appendChild(card.firstChild);
+                
+                // Bild erstellen
+                const img = document.createElement('img');
+                img.className = 'recipe-card-img loading';
+                img.alt = recipes[id] ? recipes[id].name : '';
+                img.loading = 'lazy';
+                img.onload = () => img.classList.remove('loading');
+                img.onerror = () => {
+                    // Fallback: Emoji-Platzhalter
+                    img.style.display = 'none';
+                    const emoji = document.createElement('div');
+                    emoji.className = 'recipe-card-emoji';
+                    emoji.style.display = 'block';
+                    emoji.textContent = recipeEmojis[id] || '🍽️';
+                    card.insertBefore(emoji, body);
+                };
+                img.src = recipeImages[id];
+                
+                card.insertBefore(img, card.firstChild);
+                card.appendChild(body);
+            });
+        }
+        
+        // Bilder-URL für Detailansicht (Phase 3)
+        function getRecipeImageHTML(id, width = 400, height = 220) {
+            const url = recipeImages[id];
+            if (!url) return '';
+            return `<img src="${url}" alt="" style="width:100%;height:${height}px;object-fit:cover;border-radius:8px;margin-bottom:12px;" 
+                        onerror="this.outerHTML='<div style=\'font-size:3em;text-align:center;padding:20px;\'>${recipeEmojis[id]||'🍽️'}</div>'" loading="lazy">`;
+        }
+        
+        // Bild-Injektion nach DOM-Ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Warte kurz damit recipes-Objekt initialisiert ist
+            setTimeout(injectRecipeImages, 50);
+        });
+        
+        // Bild-URLs pro Rezept (loremflickr: stabile, thematische Fotos per lock-ID)
+        const recipeImages = {
+            1:  'https://loremflickr.com/400/200/couscous,salad?lock=101',
+            2:  'https://loremflickr.com/400/200/lentil,dal,curry?lock=102',
+            3:  'https://loremflickr.com/400/200/quinoa,bowl?lock=103',
+            4:  'https://loremflickr.com/400/200/pasta,spinach?lock=104',
+            5:  'https://loremflickr.com/400/200/frittata,eggs?lock=105',
+            6:  'https://loremflickr.com/400/200/gnocchi,cream?lock=106',
+            7:  'https://loremflickr.com/400/200/shakshuka,eggs?lock=107',
+            8:  'https://loremflickr.com/400/200/pumpkin,curry?lock=108',
+            9:  'https://loremflickr.com/400/200/roasted,vegetables?lock=109',
+            10: 'https://loremflickr.com/400/200/quiche,spinach?lock=110',
+            11: 'https://loremflickr.com/400/200/risotto,asparagus?lock=111',
+            12: 'https://loremflickr.com/400/200/flammkuchen,flatbread?lock=112',
+            13: 'https://loremflickr.com/400/200/stuffed,peppers?lock=113',
+            14: 'https://loremflickr.com/400/200/pesto,pasta?lock=114',
+            15: 'https://loremflickr.com/400/200/vegetable,curry?lock=115',
+            16: 'https://loremflickr.com/400/200/salmon,asparagus?lock=116',
+            17: 'https://loremflickr.com/400/200/tuna,pasta?lock=117',
+            18: 'https://loremflickr.com/400/200/fish,potato,salad?lock=118',
+        };
+        
+        // Fallback-Emojis wenn Bild nicht lädt
+        const recipeEmojis = {
+            1:'🥗', 2:'🍲', 3:'🥙', 4:'🍝', 5:'🍳', 6:'🥟', 7:'🍳',
+            8:'🎃', 9:'🥦', 10:'🥧', 11:'🍚', 12:'🫓', 13:'🫑',
+            14:'🍝', 15:'🥘', 16:'🐟', 17:'🐟', 18:'🐟'
+        };
+
         const recipes = {
             1: { 
                 name: "Couscous-Salat mit Kichererbsen und Feta", 
@@ -1174,12 +1283,14 @@
             recipesContent += '<p style="margin-bottom: 10px;">Hier findet ihr Schritt-für-Schritt Anleitungen mit Mengenangaben für die ausgewählten Gerichte:</p>';
             
             selectedData.forEach(r => {
-                recipesContent += '<div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">';
+                recipesContent += '<div style="margin-bottom: 20px; background: white; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden;">';
+                recipesContent += getRecipeImageHTML(r.id, 400, 180);
+                recipesContent += '<div style="padding: 15px;">';
                 recipesContent += `<h4 style="color: #667eea; margin-bottom: 8px; font-size: 1.1em;">${r.name}</h4>`;
                 recipesContent += `<p style="font-size: 0.9em; color: #555; margin-bottom: 10px; font-style: italic;">🛒 Zutaten: ${r.ingredients}</p>`;
                 recipesContent += `<div style="font-size: 0.95em; line-height: 1.6;">${r.instructions}</div>`;
                 recipesContent += `<p style="font-size: 0.85em; color: #666; margin-top: 10px; padding-top: 8px; border-top: 1px dotted #ddd;">⏱️ ${r.time} Min | 🥩 Protein: ${r.protein} | 🌍 Regionalität: ${r.region}</p>`;
-                recipesContent += '</div>';
+                recipesContent += '</div></div>'; // schliesst card-body + card
             });
             
             recipesContent += '</div>';
