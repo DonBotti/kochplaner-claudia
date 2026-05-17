@@ -1308,10 +1308,40 @@
             printWindow.print();
         }
         
+        // Automatische Sicherung (ohne Download-Dialog)
+        function autoSavePlan() {
+            const selectedData = selectedRecipes.map(id => ({id, ...recipes[id]}));
+            if (selectedData.length === 0) return;
+            
+            const savedPlans = JSON.parse(localStorage.getItem('kochplaner_plans') || '[]');
+            const planNumber = savedPlans.length + 1;
+            const dateStr = new Date().toISOString().split('T')[0];
+            
+            const planData = {
+                planNumber: planNumber,
+                date: new Date().toISOString(),
+                dateFormatted: dateStr,
+                selectedRecipes: selectedData,
+                weekPlan: pdfContent.weekPlan,
+                recipes: pdfContent.recipes,
+                shopping: pdfContent.shopping
+            };
+            
+            savedPlans.push(planData);
+            localStorage.setItem('kochplaner_plans', JSON.stringify(savedPlans));
+            
+            // Zeige kurze Bestätigung
+            const badge = document.createElement('div');
+            badge.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#4caf50;color:white;padding:10px 20px;border-radius:8px;font-size:0.9em;z-index:9999;';
+            badge.innerHTML = `✅ Plan #${planNumber} automatisch gesichert (${dateStr})`;
+            document.body.appendChild(badge);
+            setTimeout(() => badge.remove(), 3000);
+        }
+        
         function savePlanToFile() {
             const planNumber = savePlanLocally();
             updateSavedPlansList();
-            alert('Plan #' + planNumber + ' wurde gespeichert!\n\nDie Datei wurde als JSON heruntergeladen und kann jederzeit wieder geladen werden.');
+            alert('Plan #' + planNumber + ' wurde gesichert und als JSON heruntergeladen!');
         }
         
         function updateSavedPlansList() {
@@ -1340,6 +1370,12 @@
             document.getElementById('phase3').classList.remove('active');
             document.getElementById('phase4').classList.add('active');
             
+            // Automatisch speichern wenn Plan komplett
+            setTimeout(() => {
+                autoSavePlan();
+                updateSavedPlansList();
+            }, 500);
+            
             const selectedData = selectedRecipes.map(id => ({id, ...recipes[id]}));
             
             // Dynamische Einkaufsliste basierend auf Auswahl
@@ -1347,24 +1383,24 @@
             
             // Zutaten-Mapping für jedes Rezept
             const recipeIngredients = {
-                1: { 'Gemüse und Früchte': ['Gurke 1 Stk', 'Tomaten 4 Stk', 'Rote Zwiebel 1 Stk'], 'Hülsenfrüchte/Getreide': ['Couscous 300g'], 'Konserven': ['Kichererbsen (Dose) 1x'], 'Milchprodukte': ['Feta 200g'], 'Gewürze/Vorrat': ['Zitrone 1 Stk', 'Olivenöl'] },
+                1: { 'Gemüse und Früchte': ['Gurke 1 Stk', 'Tomaten 4 Stk', 'Rote Zwiebel 1 Stk'], 'Hülsenfrüchte/Getreide': ['Couscous 300g'], 'Konserven': ['Kichererbsen 1 Dose'], 'Milchprodukte': ['Feta 200g'], 'Gewürze/Vorrat': ['Zitrone 1 Stk', 'Olivenöl'] },
                 2: { 'Hülsenfrüchte/Getreide': ['Rote Linsen 300g', 'Basmatireis 300g'], 'Konserven': ['Kokosmilch 1 Dose'], 'Gewürze/Vorrat': ['Kurkuma', 'Kreuzkümmel', 'Knoblauch'] },
                 3: { 'Gemüse und Früchte': ['Radieschen 1 Bund', 'Avocado 1 Stk'], 'Hülsenfrüchte/Getreide': ['Quinoa 200g'], 'Milchprodukte': ['Halloumi 200g'] },
                 4: { 'Gemüse und Früchte': ['Spinat 300g'], 'Hülsenfrüchte/Getreide': ['Pasta 500g'], 'Milchprodukte': ['Ricotta 250g', 'Parmesan 50g'] },
                 5: { 'Gemüse und Früchte': ['Frühlingszwiebeln 1 Bund', 'Paprika 2 Stk'], 'Milchprodukte': ['Eier 6 Stk', 'Käse 150g'] },
                 6: { 'Gemüse und Früchte': ['Spargel 500g'], 'Hülsenfrüchte/Getreide': ['Gnocchi 500g'], 'Milchprodukte': ['Rahm 200ml'] },
-                7: { 'Gemüse und Früchte': ['Paprika 2 Stk', 'Zwiebeln 2 Stk', 'Tomaten 4 Stk'], 'Milchprodukte': ['Eier 4 Stk'], 'Brot/Backwaren': ['Brot 1 Stk'] },
+                7: { 'Gemüse und Früchte': ['Paprika 2 Stk', 'Zwiebeln 2 Stk'], 'Konserven': ['Stückige Tomaten 1 Dose'], 'Milchprodukte': ['Eier 4 Stk'], 'Brot/Backwaren': ['Brot 1 Stk'] },
                 8: { 'Gemüse und Früchte': ['Kürbis 400g', 'Ingwer 1 Stk'], 'Hülsenfrüchte/Getreide': ['Rote Linsen 200g'], 'Konserven': ['Kokosmilch 1 Dose'] },
-                9: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Aubergine 1 Stk'], 'Konserven': ['Kichererbsen (Dose) 1x'], 'Nüsse/Samen': ['Tahini 1 Glas'] },
+                9: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Aubergine 1 Stk'], 'Konserven': ['Kichererbsen 1 Dose'], 'Nüsse/Samen': ['Tahini 1 Glas'] },
                 10: { 'Gemüse und Früchte': ['Spinat 300g'], 'Milchprodukte': ['Eier 4 Stk', 'Feta 150g', 'Sahne 200ml'], 'Brot/Backwaren': ['Blätterteig 1 Rolle'] },
                 11: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Hülsenfrüchte/Getreide': ['Risottoreis 250g'], 'Milchprodukte': ['Parmesan 100g'] },
                 12: { 'Gemüse und Früchte': ['Randen 300g', 'Zwiebeln 2 Stk'], 'Milchprodukte': ['Ziegenkäse 150g', 'Crème fraîche 200ml'], 'Brot/Backwaren': ['Flammkuchenteig 1 Stk'] },
-                13: { 'Gemüse und Früchte': ['Paprika 4 Stk'], 'Hülsenfrüchte/Getreide': ['Reis 200g'], 'Milchprodukte': ['Käse 200g'] },
+                13: { 'Gemüse und Früchte': ['Paprika 4 Stk'], 'Hülsenfrüchte/Getreide': ['Reis 200g'], 'Konserven': ['Stückige Tomaten 1 Dose'], 'Milchprodukte': ['Käse 200g'] },
                 14: { 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Hülsenfrüchte/Getreide': ['Pasta 400g'], 'Kräuter': ['Bärlauch 1 Bund'], 'Nüsse/Samen': ['Pinienkerne 50g'], 'Milchprodukte': ['Parmesan 50g'] },
-                15: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Spinat 200g'], 'Konserven': ['Kichererbsen (Dose) 1x', 'Kokosmilch 1 Dose'], 'Hülsenfrücke/Getreide': ['Basmatireis 200g'] },
-                16: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Fisch': ['Lachsfilet 300g (2 Stk)'], 'Milchprodukte': ['Butter 50g'], 'Gewürze/Vorrat': ['Knoblauch 1 Zehe', 'Öl'] },
-                17: { 'Hülsenfrüchte/Getreide': ['Pasta 300g'], 'Konserven': ['Thunfisch (Dose) 1x'], 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Gewürze/Vorrat': ['Kapern 2 EL', 'Knoblauch 1 Zehe', 'Olivenöl', 'Zitrone 1 Stk'], 'Kräuter': ['Petersilie'] },
-                18: { 'Gemüse und Früchte': ['Kartoffeln 400g', 'Gurke 1 Stk', 'Zwiebel 1 Stk'], 'Fisch': ['Seelachsfilet 300g (2 Stk)'], 'Gewürze/Vorrat': ['Öl 3 EL', 'Essig 2 EL', 'Senf 1 TL', 'Dill', 'Salz', 'Pfeffer'] }
+                15: { 'Gemüse und Früchte': ['Zucchini 2 Stk', 'Paprika 2 Stk', 'Spinat 200g'], 'Konserven': ['Kichererbsen 1 Dose', 'Kokosmilch 1 Dose'], 'Hülsenfrüchte/Getreide': ['Basmatireis 200g'] },
+                16: { 'Gemüse und Früchte': ['Spargel 400g', 'Zitrone 1 Stk'], 'Fisch': ['Lachsfilet 300g'], 'Milchprodukte': ['Butter 50g'], 'Gewürze/Vorrat': ['Knoblauch 1 Zehe', 'Öl'] },
+                17: { 'Hülsenfrüchte/Getreide': ['Pasta 300g'], 'Fisch': ['Thunfisch 1 Dose'], 'Gemüse und Früchte': ['Cherrytomaten 250g'], 'Gewürze/Vorrat': ['Kapern 2 EL', 'Knoblauch 1 Zehe', 'Olivenöl', 'Zitrone 1 Stk'], 'Kräuter': ['Petersilie'] },
+                18: { 'Gemüse und Früchte': ['Kartoffeln 400g', 'Gurke 1 Stk', 'Zwiebel 1 Stk'], 'Fisch': ['Seelachsfilet 300g'], 'Gewürze/Vorrat': ['Öl 3 EL', 'Essig 2 EL', 'Senf 1 TL', 'Dill', 'Salz', 'Pfeffer'] }
             };
             
             // Sammle Zutaten aus ausgewählten Rezepten
@@ -1382,7 +1418,7 @@
                 ingredients = {
                     'Gemüse und Früchte': ['Spargel 500g', 'Spinat 300g', 'Zucchini 2 Stk', 'Paprika 3 Stk', 'Cherrytomaten 250g', 'Zwiebeln 500g', 'Knoblauch 1 Kopf', 'Radieschen 1 Bund'],
                     'Milchprodukte': ['Eier 12 Stk', 'Feta 200g', 'Ricotta 250g', 'Parmesan 100g', 'Halloumi 200g'],
-                    'Hülsenfrücke/Getreide': ['Kichererbsen (Dose) 2x', 'Rote Linsen 300g', 'Couscous 300g', 'Pasta 500g'],
+                    'Hülsenfrüchte/Getreide': ['Kichererbsen 2 Dose', 'Rote Linsen 300g', 'Couscous 300g', 'Pasta 500g'],
                     'Konserven': ['Kokosmilch 1 Dose', 'Gemüsebrühe 1 L']
                 };
             }
@@ -1425,10 +1461,23 @@
                     // Ganze Zahlen ohne Komma, Dezimalzahlen mit Komma
                     const amountStr = Number.isInteger(data.amount) ? data.amount.toString() : data.amount.toFixed(1).replace('.', ',');
                     
+                    // Einheit pluralisieren wenn nötig
+                    let unit = data.unit;
+                    if (unit === 'Dose' && data.amount > 1) unit = 'Dosen';
+                    if (unit === 'Stk' && data.amount > 1) unit = 'Stk';
+                    if (unit === 'Bund' && data.amount > 1) unit = 'Bund';
+                    
+                    // Darstellung: Menge zuerst, dann Einheit, dann Name (für Dosen)
+                    if ((unit === 'Dose' || unit === 'Dosen') ) {
+                        return `${amountStr} ${unit} ${data.name}`;
+                    }
                     if (data.unit === 'x' && data.amount === 1) {
                         return data.name;
                     }
-                    return `${data.name} ${amountStr} ${data.unit}`;
+                    if (data.unit === 'x') {
+                        return `${data.name} ${amountStr}x`;
+                    }
+                    return `${data.name} ${amountStr} ${unit}`;
                 }).sort();
             }
             
