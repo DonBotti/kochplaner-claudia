@@ -1710,6 +1710,24 @@
             alert('Plan #' + planNumber + ' wurde gesichert und als JSON heruntergeladen!');
         }
         
+        function copyToAppleNotes() {
+            const textarea = document.getElementById('appleNotesText');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                const btn = document.querySelector('button[onclick="copyToAppleNotes()"]');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Kopiert!';
+                btn.style.background = '#4caf50';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                alert('Fehler beim Kopieren. Bitte manuell markieren und kopieren.');
+            });
+        }
+        
         function updateSavedPlansList() {
             const plans = loadSavedPlans();
             const listContainer = document.getElementById('plansListContent');
@@ -1863,16 +1881,20 @@
             
             let html = '<div class="shopping-list">';
             let shoppingForPDF = '<div class="shopping-list">';
+            let appleNotesText = '🛒 Einkaufsliste\n\n';
             
             for (const [category, items] of Object.entries(consolidatedIngredients)) {
                 html += '<div class="shopping-category">';
                 html += `<h3>${category}</h3>`;
                 shoppingForPDF += `<div class="category">${category}</div>`;
+                appleNotesText += `${category}:\n`;
                 items.forEach(item => {
-                    html += `<div class="shopping-item">☐ ${item}</div>`;
+                    html += `<div class="shopping-item"><input type="checkbox" style="margin-right:8px;cursor:pointer;" onclick="this.nextSibling.style.textDecoration=this.checked?'line-through':'none';"><span>${item}</span></div>`;
                     shoppingForPDF += `<div class="shopping-item">☐ ${item}</div>`;
+                    appleNotesText += `☐ ${item}\n`;
                 });
                 html += '</div>';
+                appleNotesText += '\n';
             }
             
             html += '</div>';
@@ -1880,6 +1902,14 @@
             
             // Speichere für PDF
             pdfContent.shopping = shoppingForPDF;
+            
+            // Apple Notes Export Button
+            html += '<div style="margin-top:30px;padding:20px;background:#f0f4ff;border-radius:12px;text-align:center;">';
+            html += '<h3 style="color:#667eea;margin-bottom:15px;">📱 Für Apple Notes</h3>';
+            html += '<p style="font-size:0.9em;color:#555;margin-bottom:15px;">Kopiere die Liste und füge sie in Apple Notes ein. Die Checkboxen (☐) werden automatisch erkannt.</p>';
+            html += `<textarea id="appleNotesText" style="width:100%;height:150px;padding:10px;border:1px solid #ddd;border-radius:8px;font-family:monospace;font-size:0.85em;resize:vertical;">${appleNotesText}</textarea>`;
+            html += '<button class="btn" onclick="copyToAppleNotes()" style="margin-top:15px;width:100%;">📋 In Zwischenablage kopieren</button>';
+            html += '</div>';
             
             document.getElementById('shoppingListContent').innerHTML = html;
         }
