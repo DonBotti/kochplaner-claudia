@@ -1,0 +1,106 @@
+{
+  "woche": "KW 23 (01.–07. Juni 2026)",
+  "saison": "Frühsommer — Spargel, Erdbeeren, Radieschen, Bärlauch, junge Kartoffeln",
+  "ausgewaehlte_rezepte": [3, 6, 10, 14, 16, 17, 5],
+  "wochenplan": {
+    "montag": {
+      "mittag": "Reste: Quinoa-Bowl mit Halloumi (vom Sonntag vorbereitet)",
+      "abend": "Gnocchi mit Spargel-Rahmsauce (15 Min)",
+      "hinweis": "Spargel schon am Sonntag putzen"
+    },
+    "dienstag": {
+      "mittag": "Reste: Gnocchi mit Spargel",
+      "abend": "Gemüse-Frittata mit Frühlingszwiebeln (35 Min, Meal-Prep)",
+      "hinweis": "Frittata am Abend backen → morgen Lunch"
+    },
+    "mittwoch": {
+      "mittag": "Reste: Gemüse-Frittata (kalt)",
+      "abend": "Pasta mit Bärlauch-Pesto und Cherrytomaten (25 Min)",
+      "hinweis": "Bärlauch-Pesto frisch zubereiten"
+    },
+    "donnerstag": {
+      "mittag": "Thunfisch-Pasta mit Kapern (kalt als Salat)",
+      "abend": "Lachsfilet mit grünem Spargel und Zitronenbutter (25 Min)",
+      "hinweis": "Spargel nicht zu lange blanchieren"
+    },
+    "freitag": {
+      "mittag": "Reste: Lachsfilet mit Spargel",
+      "abend": "Spinat-Feta-Quiche (55 Min, Meal-Prep)",
+      "hinweis": "Quiche am Abend backen → Wochenende Lunch"
+    },
+    "samstag": {
+      "mittag": "Flexibel / Reste",
+      "abend": "Quinoa-Bowl mit Halloumi und Radieschen (25 Min)",
+      "hinweis": "Frische Zutaten am Samstag einkaufen"
+    },
+    "sonntag": {
+      "mittag": "Spinat-Feta-Quiche (Reste)",
+      "abend": "Meal-Prep: Quinoa-Bowl vorbereiten + Spargel putzen",
+      "hinweis": "Quinoa kochen, Gemüse schneiden → morgen Lunch"
+    }
+  },
+  "einkaufsliste": {
+    "Gemüse und Früchte": [
+      "Spargel 1 kg (grün)",
+      "Spinat 600g (Blattspinat)",
+      "Radieschen 1 Bund",
+      "Avocado 1 Stk",
+      "Cherrytomaten 500g",
+      "Zucchini 2 Stk",
+      "Paprika 2 Stk",
+      "Frühlingszwiebeln 1 Bund",
+      "Gurke 1 Stk",
+      "Zitronen 2 Stk",
+      "Knoblauch 1 Kopf",
+      "Zwiebeln 500g"
+    ],
+    "Milchprodukte": [
+      "Eier 10 Stk",
+      "Feta 350g",
+      "Halloumi 200g",
+      "Parmesan 150g",
+      "Ricotta 250g",
+      "Sahne 200ml",
+      "Crème fraîche 200ml",
+      "Butter 100g"
+    ],
+    "Hülsenfrüchte/Getreide": [
+      "Quinoa 200g",
+      "Gnocchi 500g",
+      "Pasta 700g",
+      "Reis 300g",
+      "Couscous 300g"
+    ],
+    "Fisch": [
+      "Lachsfilet 300g",
+      "Thunfisch (Dose) 1x"
+    ],
+    "Konserven": [
+      "Kichererbsen (Dose) 1x",
+      "Kokosmilch 1 Dose"
+    ],
+    "Brot/Backwaren": [
+      "Blätterteig 1 Rolle",
+      "Brot 1 Stk"
+    ],
+    "Kräuter/Gewürze": [
+      "Bärlauch 1 Bund",
+      "Dill 1 Bund",
+      "Petersilie 1 Bund",
+      "Kapern 1 Glas",
+      "Olivenöl",
+      "Essig",
+      "Senf",
+      "Kurkuma",
+      "Kreuzkümmel"
+    ]
+  },
+  "meal_prep_tipps": [
+    "Sonntag: Quinoa kochen, Spargel putzen, Gemüse schneiden",
+    "Montag: Gnocchi-Gericht → Reste für Dienstag-Mittag",
+    "Dienstag: Frittata backen → Reste für Mittwoch-Mittag",
+    "Freitag: Quiche backen → Reste für Samstag/Sonntag",
+    "Dressings immer separat aufbewahren"
+  ],
+  "zeitersparnis": "Durch Meal-Prep ca. 60 Min weniger Kochzeit unter der Woche"
+}
